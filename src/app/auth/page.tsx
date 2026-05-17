@@ -19,14 +19,13 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
     return <SetupMissing />;
   }
 
+  const params = await searchParams;
+  const safeNext = safeRedirectPath(params.next, "/logbook");
   const currentUser = await getCurrentUser();
 
   if (currentUser) {
-    redirect("/logbook");
+    redirect(safeNext);
   }
-
-  const params = await searchParams;
-  const safeNext = safeRedirectPath(params.next, "/logbook");
 
   return (
     <AuthForm

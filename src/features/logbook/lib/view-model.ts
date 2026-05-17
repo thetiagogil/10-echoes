@@ -8,11 +8,6 @@ import type {
   ConcertStats,
   TimelineYearGroup,
 } from "@/features/logbook/types";
-import type { CurrentUser } from "@/shared/types";
-
-export function getLogbookProfileName(currentUser: CurrentUser) {
-  return currentUser.profile.displayName ?? currentUser.email ?? "Echoes user";
-}
 
 export function getFilteredConcerts(
   concerts: Concert[],
@@ -55,12 +50,6 @@ export function getTimelineGroups(concerts: Concert[]): TimelineYearGroup[] {
     year,
     concerts: groupedConcerts,
   }));
-}
-
-export function getNextConcert(concerts: Concert[]) {
-  return [...concerts]
-    .filter((concert) => !isPastConcert(concert.concertDate))
-    .sort((a, b) => a.concertDate.localeCompare(b.concertDate))[0] ?? null;
 }
 
 function getTopCounts(

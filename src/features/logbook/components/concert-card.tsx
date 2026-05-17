@@ -1,4 +1,12 @@
-import { CalendarDays, Edit3, MapPin, Music2, Star, Trash2 } from "lucide-react";
+import {
+  CalendarDays,
+  Edit3,
+  Eye,
+  MapPin,
+  Music2,
+  Star,
+  Trash2,
+} from "lucide-react";
 
 import {
   formatConcertDate,
@@ -13,6 +21,7 @@ type ConcertCardProps = {
   disabled?: boolean;
   onDelete: (concert: Concert) => void;
   onEdit: (concert: Concert) => void;
+  onView: (concert: Concert) => void;
 };
 
 export function ConcertCard({
@@ -20,6 +29,7 @@ export function ConcertCard({
   disabled = false,
   onDelete,
   onEdit,
+  onView,
 }: ConcertCardProps) {
   const past = isPastConcert(concert.concertDate);
   const songs = concert.setlist
@@ -117,25 +127,38 @@ export function ConcertCard({
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-1">
+          <div className="flex items-center justify-between gap-2 pt-1">
             <Button
-              aria-label={`Edit ${concert.artist}`}
+              aria-label={`View ${concert.artist}`}
+              className="min-w-0 flex-1"
               disabled={disabled}
-              onClick={() => onEdit(concert)}
-              size="icon"
-              variant="ghost"
+              onClick={() => onView(concert)}
+              size="sm"
+              variant="outline"
             >
-              <Edit3 className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
+              View entry
             </Button>
-            <Button
-              aria-label={`Delete ${concert.artist}`}
-              disabled={disabled}
-              onClick={() => onDelete(concert)}
-              size="icon"
-              variant="ghost"
-            >
-              <Trash2 className="h-4 w-4 text-destructive" />
-            </Button>
+            <div className="flex shrink-0 gap-1">
+              <Button
+                aria-label={`Edit ${concert.artist}`}
+                disabled={disabled}
+                onClick={() => onEdit(concert)}
+                size="icon"
+                variant="ghost"
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+              <Button
+                aria-label={`Delete ${concert.artist}`}
+                disabled={disabled}
+                onClick={() => onDelete(concert)}
+                size="icon"
+                variant="ghost"
+              >
+                <Trash2 className="h-4 w-4 text-destructive" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

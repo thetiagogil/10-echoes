@@ -19,14 +19,14 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 border-b border-border/70 bg-background/78 backdrop-blur-xl",
+        "sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl",
         className,
       )}
       {...props}
     >
       <div
         className={cn(
-          "mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6",
+          "mx-auto flex min-h-16 max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6",
           innerClassName,
         )}
       >

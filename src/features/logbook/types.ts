@@ -18,8 +18,6 @@ export type Concert = {
 
 export type ConcertFilter = "all" | "past" | "upcoming";
 
-export type LogbookViewMode = "logbook" | "timeline" | "stats";
-
 export type ConcertFormInput = {
   artist: string;
   venue: string;

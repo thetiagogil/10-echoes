@@ -5,6 +5,7 @@ import {
   isPastConcert,
 } from "@/features/logbook/lib/concerts";
 import type { TimelineYearGroup } from "@/features/logbook/types";
+import { ButtonLink } from "@/shared/components/ui/button-link";
 import { cn } from "@/shared/utils/cn";
 
 type TimelineViewProps = {
@@ -19,6 +20,9 @@ export function TimelineView({ groups }: TimelineViewProps) {
         <p className="mt-2 text-sm text-muted-foreground">
           Log your first show to start the chronology.
         </p>
+        <ButtonLink className="mt-6" href="/logbook">
+          Open logbook
+        </ButtonLink>
       </div>
     );
   }

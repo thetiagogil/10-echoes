@@ -16,10 +16,5 @@ export default async function LogbookPage() {
     return <LogbookLoadError error={error} />;
   }
 
-  return (
-    <LogbookView
-      currentUser={logbook.currentUser}
-      initialConcerts={logbook.concerts}
-    />
-  );
+  return <LogbookView initialConcerts={logbook.concerts} />;
 }

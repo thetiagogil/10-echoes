@@ -1,23 +1,17 @@
 "use client";
 
-import { Loader2, LogOut } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 
+import { ConcertDetailDialog } from "@/features/logbook/components/concert-detail-dialog";
 import { ConcertCard } from "@/features/logbook/components/concert-card";
 import { ConcertForm } from "@/features/logbook/components/concert-form";
+import { LogbookEmptyState } from "@/features/logbook/components/logbook-empty-state";
 import { LogbookActionFeedback } from "@/features/logbook/components/logbook-action-feedback";
 import { LogbookControls } from "@/features/logbook/components/logbook-controls";
-import { LogbookSummary } from "@/features/logbook/components/logbook-summary";
-import { StatsView } from "@/features/logbook/components/stats-view";
-import { TimelineView } from "@/features/logbook/components/timeline-view";
-import {
-  getConcertStats,
-  getFilteredConcerts,
-  getLogbookProfileName,
-  getNextConcert,
-  getTimelineGroups,
-} from "@/features/logbook/lib/view-model";
+import { PageIntro } from "@/features/logbook/components/page-intro";
+import { getFilteredConcerts } from "@/features/logbook/lib/view-model";
 import {
   createConcertAction,
   deleteConcertAction,
@@ -27,12 +21,8 @@ import type {
   Concert,
   ConcertFilter,
   ConcertFormInput,
-  LogbookViewMode,
 } from "@/features/logbook/types";
-import { AppHeader } from "@/shared/components/layout/app-header";
-import { AppLogo } from "@/shared/components/layout/app-logo";
 import { AppMain } from "@/shared/components/layout/app-main";
-import { AppShell } from "@/shared/components/layout/app-shell";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,41 +34,30 @@ import {
   AlertDialogTitle,
 } from "@/shared/components/ui/alert-dialog";
 import { Button } from "@/shared/components/ui/button";
-import { signOutAction } from "@/shared/server/auth-actions";
-import type { CurrentUser } from "@/shared/types";
 
 type LogbookViewProps = {
-  currentUser: CurrentUser;
   initialConcerts: Concert[];
 };
 
-export function LogbookView({
-  currentUser,
-  initialConcerts,
-}: LogbookViewProps) {
+export function LogbookView({ initialConcerts }: LogbookViewProps) {
   const router = useRouter();
   const [concerts, setConcerts] = useState(initialConcerts);
-  const [activeView, setActiveView] = useState<LogbookViewMode>("logbook");
   const [activeFilter, setActiveFilter] = useState<ConcertFilter>("all");
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Concert | null>(null);
+  const [detailConcert, setDetailConcert] = useState<Concert | null>(null);
   const [deleteCandidate, setDeleteCandidate] = useState<Concert | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [pendingConcertId, setPendingConcertId] = useState<number | null>(null);
   const [isConcertPending, startConcertTransition] = useTransition();
-  const [isAuthPending, startAuthTransition] = useTransition();
 
-  const profileName = getLogbookProfileName(currentUser);
   const visibleConcerts = useMemo(
     () => getFilteredConcerts(concerts, activeFilter),
     [activeFilter, concerts],
   );
-  const stats = useMemo(() => getConcertStats(concerts), [concerts]);
-  const timelineGroups = useMemo(
-    () => getTimelineGroups(visibleConcerts),
-    [visibleConcerts],
-  );
-  const nextConcert = useMemo(() => getNextConcert(concerts), [concerts]);
+  const entryLabel = `${concerts.length} ${
+    concerts.length === 1 ? "entry" : "entries"
+  } - and counting.`;
 
   const openCreateForm = () => {
     setFeedback(null);
@@ -88,6 +67,7 @@ export function LogbookView({
 
   const openEditForm = (concert: Concert) => {
     setFeedback(null);
+    setDetailConcert(null);
     setEditing(concert);
     setFormOpen(true);
   };
@@ -127,6 +107,7 @@ export function LogbookView({
 
   const requestDeleteConcert = (concert: Concert) => {
     setFeedback(null);
+    setDetailConcert(null);
     setDeleteCandidate(concert);
   };
 
@@ -153,84 +134,60 @@ export function LogbookView({
     });
   };
 
-  const signOut = () => {
-    startAuthTransition(async () => {
-      const result = await signOutAction();
-
-      if (!result.ok) {
-        setFeedback(result.error);
-        return;
-      }
-
-      router.replace("/");
-      router.refresh();
-    });
-  };
-
   return (
-    <AppShell>
-      <AppHeader
-        leading={<AppLogo href="/" />}
-        actions={
-          <Button
-            aria-label="Sign out"
-            className="w-10 px-0 sm:w-auto sm:px-5"
-            disabled={isAuthPending}
-            onClick={signOut}
-            size="lg"
-            variant="outline"
-          >
-            {isAuthPending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <LogOut className="h-4 w-4" />
-            )}
-            <span className="hidden sm:inline">Sign out</span>
-          </Button>
-        }
-      />
-
-      <AppMain className="pb-10">
-        <LogbookSummary
-          nextConcert={nextConcert}
-          profileName={profileName}
-          stats={stats}
+    <>
+      <AppMain className="pb-12">
+        <PageIntro
+          actions={
+            <Button onClick={openCreateForm} size="lg">
+              <Plus className="h-4 w-4" />
+              Log a show
+            </Button>
+          }
+          description={entryLabel}
+          eyebrow="The Logbook"
+          title={
+            <>
+              Your <span className="text-gradient-stage">shows</span>.
+            </>
+          }
         />
+
         <LogbookActionFeedback message={feedback} />
         <LogbookControls
           activeFilter={activeFilter}
-          activeView={activeView}
-          onCreate={openCreateForm}
           onFilterChange={setActiveFilter}
-          onViewChange={setActiveView}
         />
 
-        {activeView === "logbook" ? (
-          visibleConcerts.length > 0 ? (
-            <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {visibleConcerts.map((concert) => (
-                <ConcertCard
-                  concert={concert}
-                  disabled={
-                    isConcertPending && pendingConcertId === concert.id
-                  }
-                  key={concert.id}
-                  onDelete={requestDeleteConcert}
-                  onEdit={openEditForm}
-                />
-              ))}
-            </section>
-          ) : (
-            <EmptyLogbook onCreate={openCreateForm} />
-          )
-        ) : null}
-
-        {activeView === "timeline" ? (
-          <TimelineView groups={timelineGroups} />
-        ) : null}
-
-        {activeView === "stats" ? <StatsView stats={stats} /> : null}
+        {visibleConcerts.length > 0 ? (
+          <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {visibleConcerts.map((concert) => (
+              <ConcertCard
+                concert={concert}
+                disabled={isConcertPending && pendingConcertId === concert.id}
+                key={concert.id}
+                onDelete={requestDeleteConcert}
+                onEdit={openEditForm}
+                onView={setDetailConcert}
+              />
+            ))}
+          </section>
+        ) : (
+          <LogbookEmptyState
+            filter={activeFilter}
+            onCreate={openCreateForm}
+          />
+        )}
       </AppMain>
+
+      <ConcertDetailDialog
+        concert={detailConcert}
+        disabled={isConcertPending}
+        onClose={() => setDetailConcert(null)}
+        onDelete={requestDeleteConcert}
+        onEdit={openEditForm}
+        open={Boolean(detailConcert)}
+      />
 
       <ConcertForm
         editing={editing}
@@ -271,24 +228,6 @@ export function LogbookView({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AppShell>
-  );
-}
-
-type EmptyLogbookProps = {
-  onCreate: () => void;
-};
-
-function EmptyLogbook({ onCreate }: EmptyLogbookProps) {
-  return (
-    <section className="rounded-lg border border-dashed border-border p-12 text-center">
-      <p className="font-display text-3xl font-bold">No shows here yet.</p>
-      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-        Change the filter or log the first concert you want Echoes to remember.
-      </p>
-      <Button className="mt-6" onClick={onCreate}>
-        Log a show
-      </Button>
-    </section>
+    </>
   );
 }
