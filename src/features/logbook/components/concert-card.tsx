@@ -2,26 +2,31 @@ import {
   CalendarDays,
   Edit3,
   Eye,
+  Heart,
   MapPin,
   Music2,
   Star,
   Trash2,
 } from "lucide-react";
+import Link from "next/link";
 
 import {
+  formatTagLabel,
   formatConcertDate,
   isPastConcert,
+  isWishlistConcert,
 } from "@/features/logbook/lib/concerts";
 import type { Concert } from "@/features/logbook/types";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
+import { ButtonLink } from "@/shared/components/ui/button-link";
+import { cn } from "@/shared/utils/cn";
 
 type ConcertCardProps = {
   concert: Concert;
   disabled?: boolean;
   onDelete: (concert: Concert) => void;
   onEdit: (concert: Concert) => void;
-  onView: (concert: Concert) => void;
 };
 
 export function ConcertCard({
@@ -29,9 +34,10 @@ export function ConcertCard({
   disabled = false,
   onDelete,
   onEdit,
-  onView,
 }: ConcertCardProps) {
-  const past = isPastConcert(concert.concertDate);
+  const wishlist = isWishlistConcert(concert);
+  const past = !wishlist && isPastConcert(concert.concertDate);
+  const status = wishlist ? "Wishlist" : past ? "Attended" : "Upcoming";
   const songs = concert.setlist
     ? concert.setlist
         .split("\n")
@@ -51,14 +57,17 @@ export function ConcertCard({
         <header className="flex min-h-[92px] items-start justify-between gap-4 border-b border-dashed border-border/70 p-5">
           <div className="min-w-0">
             <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              {past ? "Attended" : "Upcoming"}
+              {status}
             </p>
-            <h3 className="truncate font-display text-2xl font-bold leading-tight">
+            <Link
+              className="block truncate font-display text-2xl font-bold leading-tight transition-colors hover:text-primary"
+              href={`/logbook/${concert.id}`}
+            >
               {concert.artist}
-            </h3>
+            </Link>
           </div>
-          <Badge variant={past ? "accent" : "primary"}>
-            {past ? "Stub" : "Plan"}
+          <Badge variant={wishlist ? "surface" : past ? "accent" : "primary"}>
+            {wishlist ? "Wish" : past ? "Stub" : "Plan"}
           </Badge>
         </header>
 
@@ -71,9 +80,23 @@ export function ConcertCard({
             </span>
           </p>
           <p className="flex items-center gap-2 font-mono text-xs text-secondary">
-            <CalendarDays className="h-4 w-4 shrink-0" />
+            {wishlist ? (
+              <Heart className="h-4 w-4 shrink-0" />
+            ) : (
+              <CalendarDays className="h-4 w-4 shrink-0" />
+            )}
             {formatConcertDate(concert.concertDate)}
           </p>
+
+          {concert.tags.length > 0 ? (
+            <div className="flex min-h-6 flex-wrap gap-1">
+              {concert.tags.slice(0, 4).map((tag) => (
+                <Badge key={tag} variant="surface">
+                  {formatTagLabel(tag)}
+                </Badge>
+              ))}
+            </div>
+          ) : null}
 
           <div className="flex h-5 items-center gap-0.5">
             {concert.rating
@@ -128,17 +151,19 @@ export function ConcertCard({
           </div>
 
           <div className="flex items-center justify-between gap-2 pt-1">
-            <Button
+            <ButtonLink
               aria-label={`View ${concert.artist}`}
-              className="min-w-0 flex-1"
-              disabled={disabled}
-              onClick={() => onView(concert)}
+              className={cn(
+                "min-w-0 flex-1",
+                disabled && "pointer-events-none opacity-60",
+              )}
+              href={`/logbook/${concert.id}`}
               size="sm"
               variant="outline"
             >
               <Eye className="h-4 w-4" />
               View entry
-            </Button>
+            </ButtonLink>
             <div className="flex shrink-0 gap-1">
               <Button
                 aria-label={`Edit ${concert.artist}`}

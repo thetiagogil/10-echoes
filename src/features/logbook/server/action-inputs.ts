@@ -9,6 +9,8 @@ export function buildCreateConcertArgs(input: NormalizedConcertInput) {
     p_rating: input.rating,
     p_setlist: input.setlist,
     p_notes: input.notes,
+    p_tags: input.tags,
+    p_is_wishlist: input.isWishlist,
   };
 }
 

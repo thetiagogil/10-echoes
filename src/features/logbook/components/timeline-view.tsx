@@ -1,4 +1,5 @@
 import { MapPin, Star } from "lucide-react";
+import Link from "next/link";
 
 import {
   formatConcertMonthDay,
@@ -53,7 +54,10 @@ export function TimelineView({ groups }: TimelineViewProps) {
                       past ? "bg-secondary" : "bg-primary",
                     )}
                   />
-                  <article className="rounded-lg border border-border bg-card/80 p-5 shadow-card transition hover:border-primary/50">
+                  <Link
+                    className="block rounded-lg border border-border bg-card/80 p-5 shadow-card transition hover:border-primary/50"
+                    href={`/logbook/${concert.id}`}
+                  >
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
                         <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
@@ -89,7 +93,7 @@ export function TimelineView({ groups }: TimelineViewProps) {
                         &quot;{concert.notes}&quot;
                       </p>
                     ) : null}
-                  </article>
+                  </Link>
                 </li>
               );
             })}

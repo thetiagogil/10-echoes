@@ -10,6 +10,8 @@ export function mapConcert(row: ConcertRow): Concert {
     rating: row.rating,
     setlist: row.setlist,
     notes: row.notes,
+    tags: row.tags,
+    isWishlist: row.is_wishlist,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };

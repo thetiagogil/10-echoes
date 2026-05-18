@@ -1,24 +1,58 @@
 import {
+  formatTagLabel,
   filterConcerts,
   isPastConcert,
+  isWishlistConcert,
 } from "@/features/logbook/lib/concerts";
 import type {
   Concert,
-  ConcertFilter,
+  ConcertFilterState,
   ConcertStats,
   TimelineYearGroup,
 } from "@/features/logbook/types";
 
 export function getFilteredConcerts(
   concerts: Concert[],
-  filter: ConcertFilter,
+  filters: ConcertFilterState,
 ) {
-  return filterConcerts(concerts, filter);
+  const query = filters.query.trim().toLowerCase();
+
+  return filterConcerts(concerts, filters.status).filter((concert) => {
+    if (filters.year && concert.concertDate?.slice(0, 4) !== filters.year) {
+      return false;
+    }
+
+    if (filters.tag && !concert.tags.includes(filters.tag)) {
+      return false;
+    }
+
+    if (!query) return true;
+
+    return getSearchText(concert).includes(query);
+  });
+}
+
+export function getAvailableYears(concerts: Concert[]) {
+  return Array.from(
+    new Set(
+      concerts
+        .map((concert) => concert.concertDate?.slice(0, 4))
+        .filter((year): year is string => Boolean(year)),
+    ),
+  ).sort((a, b) => b.localeCompare(a));
+}
+
+export function getAvailableTags(concerts: Concert[]) {
+  return Array.from(new Set(concerts.flatMap((concert) => concert.tags))).sort(
+    (a, b) => formatTagLabel(a).localeCompare(formatTagLabel(b)),
+  );
 }
 
 export function getConcertStats(concerts: Concert[]): ConcertStats {
-  const attended = concerts.filter((concert) => isPastConcert(concert.concertDate));
-  const upcoming = concerts.filter((concert) => !isPastConcert(concert.concertDate));
+  const wishlist = concerts.filter(isWishlistConcert);
+  const scheduled = concerts.filter((concert) => !isWishlistConcert(concert));
+  const attended = scheduled.filter((concert) => isPastConcert(concert.concertDate));
+  const upcoming = scheduled.filter((concert) => !isPastConcert(concert.concertDate));
   const ratings = attended
     .map((concert) => concert.rating)
     .filter((rating): rating is number => typeof rating === "number");
@@ -27,19 +61,25 @@ export function getConcertStats(concerts: Concert[]): ConcertStats {
     totalShows: concerts.length,
     attendedShows: attended.length,
     upcomingShows: upcoming.length,
+    wishlistShows: wishlist.length,
     averageRating: ratings.length
       ? ratings.reduce((total, rating) => total + rating, 0) / ratings.length
       : null,
     topArtists: getTopCounts(attended, (concert) => concert.artist),
     topVenues: getTopCounts(attended, (concert) => concert.venue),
+    topTags: getTopTagCounts(concerts),
   };
 }
 
 export function getTimelineGroups(concerts: Concert[]): TimelineYearGroup[] {
-  const sorted = filterConcerts(concerts, "all");
+  const sorted = filterConcerts(concerts, "all").filter(
+    (concert) => !isWishlistConcert(concert),
+  );
   const groups = new Map<string, Concert[]>();
 
   for (const concert of sorted) {
+    if (!concert.concertDate) continue;
+
     const year = concert.concertDate.slice(0, 4);
     const group = groups.get(year) ?? [];
     group.push(concert);
@@ -70,4 +110,33 @@ function getTopCounts(
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
     .slice(0, limit);
+}
+
+function getTopTagCounts(concerts: Concert[], limit = 6) {
+  const counts = new Map<string, number>();
+
+  for (const concert of concerts) {
+    for (const tag of concert.tags) {
+      counts.set(tag, (counts.get(tag) ?? 0) + 1);
+    }
+  }
+
+  return Array.from(counts.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+    .slice(0, limit);
+}
+
+function getSearchText(concert: Concert) {
+  return [
+    concert.artist,
+    concert.venue,
+    concert.city,
+    concert.notes,
+    concert.setlist,
+    ...concert.tags,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 }

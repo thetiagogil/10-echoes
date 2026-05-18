@@ -46,7 +46,7 @@ export async function createConcertAction(
       return { ok: false, error: formatConcertMutationError(error?.message) };
     }
 
-    revalidatePath("/logbook");
+    revalidateConcertRoutes();
 
     return { ok: true, data: mapConcert(data) };
   } catch (error) {
@@ -83,7 +83,7 @@ export async function updateConcertAction(
       return { ok: false, error: formatConcertMutationError(error?.message) };
     }
 
-    revalidatePath("/logbook");
+    revalidateConcertRoutes(data.id);
 
     return { ok: true, data: mapConcert(data) };
   } catch (error) {
@@ -113,10 +113,20 @@ export async function deleteConcertAction(
       return { ok: false, error: formatConcertMutationError(error?.message) };
     }
 
-    revalidatePath("/logbook");
+    revalidateConcertRoutes(data.id);
 
     return { ok: true, data: mapConcert(data) };
   } catch (error) {
     return { ok: false, error: formatCaughtConcertActionError(error) };
+  }
+}
+
+function revalidateConcertRoutes(concertId?: number) {
+  revalidatePath("/logbook");
+  revalidatePath("/timeline");
+  revalidatePath("/stats");
+
+  if (concertId) {
+    revalidatePath(`/logbook/${concertId}`);
   }
 }

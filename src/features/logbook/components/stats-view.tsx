@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 
+import { formatTagLabel } from "@/features/logbook/lib/concerts";
 import type { ConcertStats } from "@/features/logbook/types";
+import { Badge } from "@/shared/components/ui/badge";
 
 type StatsViewProps = {
   stats: ConcertStats;
@@ -11,20 +13,22 @@ export function StatsView({ stats }: StatsViewProps) {
     ...stats.topArtists.map((artist) => artist.count),
     1,
   );
+  const maxTagCount = Math.max(...stats.topTags.map((tag) => tag.count), 1);
 
   return (
     <div className="space-y-10">
-      <section className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
+      <section className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-5">
         <Stat label="Total shows" value={stats.totalShows} />
         <Stat label="Attended" value={stats.attendedShows} tone="secondary" />
         <Stat label="Upcoming" value={stats.upcomingShows} tone="primary" />
+        <Stat label="Wishlist" value={stats.wishlistShows} />
         <Stat
           label="Avg. rating"
           value={stats.averageRating ? stats.averageRating.toFixed(1) : "-"}
         />
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
+      <section className="grid gap-6 lg:grid-cols-3">
         <StatsPanel title="Most-seen artists">
           {stats.topArtists.length > 0 ? (
             <ul className="space-y-4">
@@ -80,6 +84,33 @@ export function StatsView({ stats }: StatsViewProps) {
             <EmptyStatsText />
           )}
         </StatsPanel>
+
+        <StatsPanel title="Top tags">
+          {stats.topTags.length > 0 ? (
+            <ul className="space-y-4">
+              {stats.topTags.map((tag) => (
+                <li key={tag.name}>
+                  <div className="mb-1 flex items-baseline justify-between gap-3">
+                    <Badge variant="surface">{formatTagLabel(tag.name)}</Badge>
+                    <span className="font-mono text-xs text-muted-foreground">
+                      x{tag.count}
+                    </span>
+                  </div>
+                  <div className="h-2 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full bg-secondary"
+                      style={{
+                        width: `${(tag.count / maxTagCount) * 100}%`,
+                      }}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <EmptyStatsText />
+          )}
+        </StatsPanel>
       </section>
     </div>
   );
@@ -128,7 +159,7 @@ function StatsPanel({ children, title }: StatsPanelProps) {
 function EmptyStatsText() {
   return (
     <p className="text-sm italic leading-6 text-muted-foreground">
-      Log a few attended shows to see patterns here.
+      Add a few tagged entries to see patterns here.
     </p>
   );
 }

@@ -4,14 +4,18 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 
-import { ConcertDetailDialog } from "@/features/logbook/components/concert-detail-dialog";
 import { ConcertCard } from "@/features/logbook/components/concert-card";
 import { ConcertForm } from "@/features/logbook/components/concert-form";
 import { LogbookEmptyState } from "@/features/logbook/components/logbook-empty-state";
 import { LogbookActionFeedback } from "@/features/logbook/components/logbook-action-feedback";
 import { LogbookControls } from "@/features/logbook/components/logbook-controls";
 import { PageIntro } from "@/features/logbook/components/page-intro";
-import { getFilteredConcerts } from "@/features/logbook/lib/view-model";
+import { formatTagLabel } from "@/features/logbook/lib/concerts";
+import {
+  getAvailableTags,
+  getAvailableYears,
+  getFilteredConcerts,
+} from "@/features/logbook/lib/view-model";
 import {
   createConcertAction,
   deleteConcertAction,
@@ -43,17 +47,41 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
   const router = useRouter();
   const [concerts, setConcerts] = useState(initialConcerts);
   const [activeFilter, setActiveFilter] = useState<ConcertFilter>("all");
+  const [query, setQuery] = useState("");
+  const [year, setYear] = useState("");
+  const [tag, setTag] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Concert | null>(null);
-  const [detailConcert, setDetailConcert] = useState<Concert | null>(null);
   const [deleteCandidate, setDeleteCandidate] = useState<Concert | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [pendingConcertId, setPendingConcertId] = useState<number | null>(null);
   const [isConcertPending, startConcertTransition] = useTransition();
 
   const visibleConcerts = useMemo(
-    () => getFilteredConcerts(concerts, activeFilter),
-    [activeFilter, concerts],
+    () =>
+      getFilteredConcerts(concerts, {
+        status: activeFilter,
+        query,
+        year,
+        tag,
+      }),
+    [activeFilter, concerts, query, tag, year],
+  );
+  const yearOptions = useMemo(
+    () =>
+      getAvailableYears(concerts).map((availableYear) => ({
+        label: availableYear,
+        value: availableYear,
+      })),
+    [concerts],
+  );
+  const tagOptions = useMemo(
+    () =>
+      getAvailableTags(concerts).map((availableTag) => ({
+        label: formatTagLabel(availableTag),
+        value: availableTag,
+      })),
+    [concerts],
   );
   const entryLabel = `${concerts.length} ${
     concerts.length === 1 ? "entry" : "entries"
@@ -67,7 +95,6 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
 
   const openEditForm = (concert: Concert) => {
     setFeedback(null);
-    setDetailConcert(null);
     setEditing(concert);
     setFormOpen(true);
   };
@@ -107,7 +134,6 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
 
   const requestDeleteConcert = (concert: Concert) => {
     setFeedback(null);
-    setDetailConcert(null);
     setDeleteCandidate(concert);
   };
 
@@ -157,6 +183,14 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
         <LogbookControls
           activeFilter={activeFilter}
           onFilterChange={setActiveFilter}
+          onQueryChange={setQuery}
+          onTagChange={setTag}
+          onYearChange={setYear}
+          query={query}
+          tag={tag}
+          tagOptions={tagOptions}
+          year={year}
+          yearOptions={yearOptions}
         />
 
         {visibleConcerts.length > 0 ? (
@@ -168,7 +202,6 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
                 key={concert.id}
                 onDelete={requestDeleteConcert}
                 onEdit={openEditForm}
-                onView={setDetailConcert}
               />
             ))}
           </section>
@@ -179,15 +212,6 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
           />
         )}
       </AppMain>
-
-      <ConcertDetailDialog
-        concert={detailConcert}
-        disabled={isConcertPending}
-        onClose={() => setDetailConcert(null)}
-        onDelete={requestDeleteConcert}
-        onEdit={openEditForm}
-        open={Boolean(detailConcert)}
-      />
 
       <ConcertForm
         editing={editing}

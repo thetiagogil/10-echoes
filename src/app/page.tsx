@@ -52,7 +52,7 @@ export default function Home() {
               sizes="100vw"
               src="/hero-concert.jpg"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-background/78 to-background" />
+            <div className="absolute inset-0 bg-linear-to-b from-background/35 via-background/78 to-background" />
           </div>
 
           <div className="relative mx-auto flex min-h-[calc(100dvh-8rem)] max-w-6xl flex-col justify-center px-6 py-16 md:py-24">
@@ -77,7 +77,12 @@ export default function Home() {
               </ButtonLink>
               <form action="/api/auth/demo" method="post">
                 <input name="next" type="hidden" value="/logbook" />
-                <Button className="w-full sm:w-auto" size="lg" type="submit" variant="outline">
+                <Button
+                  className="w-full sm:w-auto"
+                  size="lg"
+                  type="submit"
+                  variant="outline"
+                >
                   <Music2 className="h-4 w-4" />
                   Use demo account
                 </Button>
@@ -88,17 +93,17 @@ export default function Home() {
 
         <section className="mx-auto grid max-w-6xl gap-px overflow-hidden rounded-xl border border-border bg-border px-0 md:grid-cols-3">
           <Feature
-            body="Capture artist, venue, date, rating, setlist, and private notes in one focused flow."
+            body="Capture artist, venue, date, tags, rating, setlist, and private notes in one focused flow."
             icon={ListMusic}
             title="Logbook"
           />
           <Feature
-            body="See past shows and upcoming plans in a simple chronology grouped by year."
+            body="See dated shows in a simple chronology while bucket-list entries stay in your logbook."
             icon={CalendarClock}
             title="Timeline"
           />
           <Feature
-            body="Track totals, average rating, most-seen artists, and favorite venues without extra setup."
+            body="Track totals, wishlist count, average rating, top tags, most-seen artists, and favorite venues."
             icon={BarChart3}
             title="Stats"
           />
@@ -137,13 +142,7 @@ function Feature({ body, icon: Icon, title }: FeatureProps) {
   );
 }
 
-function HeaderLink({
-  children,
-  href,
-}: {
-  children: ReactNode;
-  href: string;
-}) {
+function HeaderLink({ children, href }: { children: ReactNode; href: string }) {
   return (
     <Link
       className="rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition hover:text-foreground"

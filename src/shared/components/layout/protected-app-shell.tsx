@@ -59,7 +59,8 @@ export function ProtectedAppShell({
           <>
             <div className="order-3 flex w-full items-center gap-1 pt-1 sm:order-none sm:w-auto sm:pt-0">
               {navLinks.map((link) => {
-                const active = pathname === link.href;
+                const active =
+                  pathname === link.href || pathname.startsWith(`${link.href}/`);
 
                 return (
                   <Link

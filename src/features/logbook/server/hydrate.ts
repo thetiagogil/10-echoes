@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
-import { getConcerts } from "@/features/logbook/server/concerts";
+import { getConcert, getConcerts } from "@/features/logbook/server/concerts";
 import type { LogbookHydration } from "@/features/logbook/types";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -30,4 +30,21 @@ export async function hydrateLogbook(): Promise<LogbookHydration> {
     },
     concerts,
   };
+}
+
+export async function hydrateConcertDetail(concertId: number) {
+  const client = await createClient();
+  const user = await getCurrentAuthUser(client);
+
+  if (!user) {
+    redirect(`/auth?next=/logbook/${concertId}`);
+  }
+
+  const concert = await getConcert(client, concertId);
+
+  if (!concert) {
+    notFound();
+  }
+
+  return concert;
 }

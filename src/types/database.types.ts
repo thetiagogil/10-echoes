@@ -7,12 +7,14 @@ type EmptyRecord = {
 export type EchoesConcertRow = {
   artist: string;
   city: string | null;
-  concert_date: string;
+  concert_date: string | null;
   created_at: string;
   id: number;
+  is_wishlist: boolean;
   notes: string | null;
   rating: number | null;
   setlist: string | null;
+  tags: string[];
   updated_at: string;
   user_id: string;
   venue: string;
@@ -21,12 +23,14 @@ export type EchoesConcertRow = {
 export type EchoesConcertInsert = {
   artist: string;
   city?: string | null;
-  concert_date: string;
+  concert_date?: string | null;
   created_at?: string;
   id?: never;
+  is_wishlist?: boolean;
   notes?: string | null;
   rating?: number | null;
   setlist?: string | null;
+  tags?: string[];
   updated_at?: string;
   user_id: string;
   venue: string;
@@ -35,12 +39,14 @@ export type EchoesConcertInsert = {
 export type EchoesConcertUpdate = {
   artist?: string;
   city?: string | null;
-  concert_date?: string;
+  concert_date?: string | null;
   created_at?: string;
   id?: never;
+  is_wishlist?: boolean;
   notes?: string | null;
   rating?: number | null;
   setlist?: string | null;
+  tags?: string[];
   updated_at?: string;
   user_id?: string;
   venue?: string;
@@ -69,11 +75,13 @@ export type EchoesSchema = {
       Args: {
         p_artist: string;
         p_venue: string;
-        p_concert_date: string;
+        p_concert_date: string | null;
         p_city?: string | null;
         p_rating?: number | null;
         p_setlist?: string | null;
         p_notes?: string | null;
+        p_tags?: string[];
+        p_is_wishlist?: boolean;
       };
       Returns: EchoesConcertRow;
     };
@@ -82,11 +90,13 @@ export type EchoesSchema = {
         p_concert_id: number;
         p_artist: string;
         p_venue: string;
-        p_concert_date: string;
+        p_concert_date: string | null;
         p_city?: string | null;
         p_rating?: number | null;
         p_setlist?: string | null;
         p_notes?: string | null;
+        p_tags?: string[];
+        p_is_wishlist?: boolean;
       };
       Returns: EchoesConcertRow;
     };
@@ -101,6 +111,6 @@ export type EchoesSchema = {
   CompositeTypes: EmptyRecord;
 };
 
-export type Database = SharedDatabase & {
+export type Database = Omit<SharedDatabase, "echoes"> & {
   echoes: EchoesSchema;
 };

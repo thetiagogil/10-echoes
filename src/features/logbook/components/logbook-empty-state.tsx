@@ -19,6 +19,10 @@ const copy: Record<ConcertFilter, { body: string; title: string }> = {
     title: "No upcoming shows yet.",
     body: "Add the next date when tickets land.",
   },
+  wishlist: {
+    title: "No wishlist entries yet.",
+    body: "Save the bucket-list shows you want Echoes to keep in view.",
+  },
 };
 
 export function LogbookEmptyState({
