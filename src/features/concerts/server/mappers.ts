@@ -1,4 +1,4 @@
-import type { Concert, ConcertRow } from "@/features/logbook/types";
+import type { Concert, ConcertRow } from "@/features/concerts/types";
 
 export function mapConcert(row: ConcertRow): Concert {
   return {

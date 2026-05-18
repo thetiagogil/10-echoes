@@ -1,15 +1,17 @@
 "use client";
 
-import { Heart, Loader2, Star, Tag } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { FormEvent, useState } from "react";
 
-import type { Concert, ConcertFormInput } from "@/features/logbook/types";
+import { RatingInput } from "@/features/concerts/components/rating-input";
+import { TagsInput } from "@/features/concerts/components/tags-input";
+import { WishlistToggle } from "@/features/concerts/components/wishlist-toggle";
+import type { Concert, ConcertFormInput } from "@/features/concerts/types";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { Modal } from "@/shared/components/ui/modal";
 import { Textarea } from "@/shared/components/ui/textarea";
-import { cn } from "@/shared/utils/cn";
 
 type ConcertFormProps = {
   editing: Concert | null;
@@ -79,24 +81,11 @@ export function ConcertForm({
           />
         </div>
 
-        <label className="flex items-start gap-3 rounded-lg border border-border bg-background/35 p-3 text-sm">
-          <input
-            checked={isWishlist}
-            className="mt-1 h-4 w-4 accent-primary"
-            disabled={pending}
-            onChange={(event) => setIsWishlist(event.target.checked)}
-            type="checkbox"
-          />
-          <span>
-            <span className="flex items-center gap-2 font-semibold">
-              <Heart className="h-4 w-4 text-primary" />
-              Bucket-list show
-            </span>
-            <span className="mt-1 block text-xs leading-5 text-muted-foreground">
-              Save this without a date when the show is still a wish.
-            </span>
-          </span>
-        </label>
+        <WishlistToggle
+          checked={isWishlist}
+          disabled={pending}
+          onChange={setIsWishlist}
+        />
 
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="grid gap-1.5">
@@ -148,48 +137,13 @@ export function ConcertForm({
           />
         </div>
 
-        <div className="grid gap-1.5">
-          <Label htmlFor="tags">Tags</Label>
-          <div className="relative">
-            <Tag className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              autoComplete="off"
-              className="pl-9"
-              disabled={pending}
-              id="tags"
-              maxLength={520}
-              name="tags"
-              onChange={(event) => setTagsText(event.target.value)}
-              placeholder="festival, favorite, late-night"
-              value={tagsText}
-            />
-          </div>
-        </div>
+        <TagsInput
+          disabled={pending}
+          onChange={setTagsText}
+          value={tagsText}
+        />
 
-        <div className="grid gap-1.5">
-          <Label>Rating</Label>
-          <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((value) => (
-              <button
-                aria-label={`Set rating to ${value}`}
-                className="rounded p-1 transition hover:bg-secondary/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                disabled={pending}
-                key={value}
-                onClick={() => setRating(value === rating ? 0 : value)}
-                type="button"
-              >
-                <Star
-                  className={cn(
-                    "h-6 w-6",
-                    value <= rating
-                      ? "fill-secondary text-secondary"
-                      : "text-muted-foreground/40",
-                  )}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
+        <RatingInput disabled={pending} onChange={setRating} value={rating} />
 
         <div className="grid gap-1.5">
           <Label htmlFor="notes">Notes</Label>

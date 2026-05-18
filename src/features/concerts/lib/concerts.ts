@@ -1,4 +1,8 @@
-import type { Concert, ConcertFilter, ConcertFormInput } from "@/features/logbook/types";
+import type {
+  Concert,
+  ConcertFilter,
+  ConcertFormInput,
+} from "@/features/concerts/types";
 
 const datePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
 const minimumDate = "1900-01-01";

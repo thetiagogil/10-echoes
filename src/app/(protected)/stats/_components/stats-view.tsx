@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-import { formatTagLabel } from "@/features/logbook/lib/concerts";
-import type { ConcertStats } from "@/features/logbook/types";
+import { formatTagLabel } from "@/features/concerts/lib/concerts";
+import type { ConcertStats } from "@/features/concerts/types";
 import { Badge } from "@/shared/components/ui/badge";
 
 type StatsViewProps = {

@@ -1,4 +1,4 @@
-import type { NormalizedConcertInput } from "@/features/logbook/lib/concerts";
+import type { NormalizedConcertInput } from "@/features/concerts/lib/concerts";
 
 export function buildCreateConcertArgs(input: NormalizedConcertInput) {
   return {

@@ -2,19 +2,19 @@
 
 import { revalidatePath } from "next/cache";
 
-import { normalizeConcertInput } from "@/features/logbook/lib/concerts";
+import { normalizeConcertInput } from "@/features/concerts/lib/concerts";
 import {
   formatCaughtConcertActionError,
   formatConcertMutationError,
-} from "@/features/logbook/server/action-errors";
+} from "@/features/concerts/server/action-errors";
 import {
   buildCreateConcertArgs,
   buildDeleteConcertArgs,
   buildUpdateConcertArgs,
   validateConcertId,
-} from "@/features/logbook/server/action-inputs";
-import { mapConcert } from "@/features/logbook/server/mappers";
-import type { Concert, ConcertFormInput } from "@/features/logbook/types";
+} from "@/features/concerts/server/action-inputs";
+import { mapConcert } from "@/features/concerts/server/mappers";
+import type { Concert, ConcertFormInput } from "@/features/concerts/types";
 import { echoes } from "@/lib/supabase/schemas";
 import { createClient } from "@/lib/supabase/server";
 import type { ActionResult } from "@/shared/server/action-result";

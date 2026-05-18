@@ -1,25 +1,25 @@
 import { unstable_rethrow } from "next/navigation";
 
-import { LogbookLoadError } from "@/features/logbook/components/logbook-load-error";
-import { PageIntro } from "@/features/logbook/components/page-intro";
-import { TimelineView } from "@/features/logbook/components/timeline-view";
-import { getTimelineGroups } from "@/features/logbook/lib/view-model";
-import { hydrateLogbook } from "@/features/logbook/server/hydrate";
-import type { LogbookHydration } from "@/features/logbook/types";
+import { getTimelineGroups } from "@/features/concerts/lib/view-model";
+import type { Concert } from "@/features/concerts/types";
 import { AppMain } from "@/shared/components/layout/app-main";
+import { PageIntro } from "../_components/page-intro";
+import { ProtectedLoadError } from "../_components/protected-load-error";
+import { hydrateConcerts } from "../_lib/concert-data";
+import { TimelineView } from "./_components/timeline-view";
 
 export default async function TimelinePage() {
-  let logbook: LogbookHydration;
+  let concerts: Concert[];
 
   try {
-    logbook = await hydrateLogbook();
+    concerts = await hydrateConcerts("/timeline");
   } catch (error) {
     unstable_rethrow(error);
 
-    return <LogbookLoadError error={error} />;
+    return <ProtectedLoadError error={error} />;
   }
 
-  const groups = getTimelineGroups(logbook.concerts);
+  const groups = getTimelineGroups(concerts);
 
   return (
     <AppMain className="pb-12">

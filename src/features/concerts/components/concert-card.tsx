@@ -15,8 +15,8 @@ import {
   formatConcertDate,
   isPastConcert,
   isWishlistConcert,
-} from "@/features/logbook/lib/concerts";
-import type { Concert } from "@/features/logbook/types";
+} from "@/features/concerts/lib/concerts";
+import type { Concert } from "@/features/concerts/types";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
 import { ButtonLink } from "@/shared/components/ui/button-link";

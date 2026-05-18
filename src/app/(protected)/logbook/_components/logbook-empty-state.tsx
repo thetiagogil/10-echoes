@@ -1,4 +1,4 @@
-import type { ConcertFilter } from "@/features/logbook/types";
+import type { ConcertFilter } from "@/features/concerts/types";
 import { Button } from "@/shared/components/ui/button";
 
 type LogbookEmptyStateProps = {

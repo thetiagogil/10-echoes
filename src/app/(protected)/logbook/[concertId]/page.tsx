@@ -1,10 +1,10 @@
 import { notFound, unstable_rethrow } from "next/navigation";
 
-import { ConcertDetailView } from "@/features/logbook/components/concert-detail-view";
-import { LogbookLoadError } from "@/features/logbook/components/logbook-load-error";
-import { hydrateConcertDetail } from "@/features/logbook/server/hydrate";
-import { validateConcertId } from "@/features/logbook/server/action-inputs";
-import type { Concert } from "@/features/logbook/types";
+import { parseConcertIdParam } from "@/features/concerts/lib/ids";
+import type { Concert } from "@/features/concerts/types";
+import { ProtectedLoadError } from "../../_components/protected-load-error";
+import { hydrateConcertDetail } from "../../_lib/concert-data";
+import { ConcertDetailView } from "../_components/concert-detail-view";
 
 type ConcertDetailPageProps = {
   params: Promise<{
@@ -16,7 +16,7 @@ export default async function ConcertDetailPage({
   params,
 }: ConcertDetailPageProps) {
   const { concertId } = await params;
-  const idResult = validateConcertId(Number(concertId));
+  const idResult = parseConcertIdParam(concertId);
 
   if (!idResult.ok) {
     notFound();
@@ -29,7 +29,7 @@ export default async function ConcertDetailPage({
   } catch (error) {
     unstable_rethrow(error);
 
-    return <LogbookLoadError error={error} />;
+    return <ProtectedLoadError error={error} />;
   }
 
   return <ConcertDetailView initialConcert={concert} />;

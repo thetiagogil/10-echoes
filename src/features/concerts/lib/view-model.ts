@@ -3,13 +3,13 @@ import {
   filterConcerts,
   isPastConcert,
   isWishlistConcert,
-} from "@/features/logbook/lib/concerts";
+} from "@/features/concerts/lib/concerts";
 import type {
   Concert,
   ConcertFilterState,
   ConcertStats,
   TimelineYearGroup,
-} from "@/features/logbook/types";
+} from "@/features/concerts/types";
 
 export function getFilteredConcerts(
   concerts: Concert[],

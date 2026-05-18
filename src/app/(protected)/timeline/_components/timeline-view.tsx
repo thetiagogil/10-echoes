@@ -4,8 +4,8 @@ import Link from "next/link";
 import {
   formatConcertMonthDay,
   isPastConcert,
-} from "@/features/logbook/lib/concerts";
-import type { TimelineYearGroup } from "@/features/logbook/types";
+} from "@/features/concerts/lib/concerts";
+import type { TimelineYearGroup } from "@/features/concerts/types";
 import { ButtonLink } from "@/shared/components/ui/button-link";
 import { cn } from "@/shared/utils/cn";
 

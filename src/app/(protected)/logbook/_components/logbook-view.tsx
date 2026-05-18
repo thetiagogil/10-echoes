@@ -4,39 +4,30 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 
-import { ConcertCard } from "@/features/logbook/components/concert-card";
-import { ConcertForm } from "@/features/logbook/components/concert-form";
-import { LogbookEmptyState } from "@/features/logbook/components/logbook-empty-state";
-import { LogbookActionFeedback } from "@/features/logbook/components/logbook-action-feedback";
-import { LogbookControls } from "@/features/logbook/components/logbook-controls";
-import { PageIntro } from "@/features/logbook/components/page-intro";
-import { formatTagLabel } from "@/features/logbook/lib/concerts";
+import { ConcertCard } from "@/features/concerts/components/concert-card";
+import { ConcertForm } from "@/features/concerts/components/concert-form";
+import { formatTagLabel } from "@/features/concerts/lib/concerts";
 import {
   getAvailableTags,
   getAvailableYears,
   getFilteredConcerts,
-} from "@/features/logbook/lib/view-model";
+} from "@/features/concerts/lib/view-model";
 import {
   createConcertAction,
   deleteConcertAction,
   updateConcertAction,
-} from "@/features/logbook/server/actions";
+} from "@/features/concerts/server/actions";
 import type {
   Concert,
   ConcertFilter,
   ConcertFormInput,
-} from "@/features/logbook/types";
+} from "@/features/concerts/types";
+import { PageIntro } from "../../_components/page-intro";
+import { DeleteConcertDialog } from "./delete-concert-dialog";
+import { LogbookActionFeedback } from "./logbook-action-feedback";
+import { LogbookControls } from "./logbook-controls";
+import { LogbookEmptyState } from "./logbook-empty-state";
 import { AppMain } from "@/shared/components/layout/app-main";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/shared/components/ui/alert-dialog";
 import { Button } from "@/shared/components/ui/button";
 
 type LogbookViewProps = {
@@ -222,36 +213,17 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
         pending={isConcertPending}
       />
 
-      <AlertDialog
+      <DeleteConcertDialog
+        artist={deleteCandidate?.artist}
         onOpenChange={(open) => {
           if (!open) {
             setDeleteCandidate(null);
           }
         }}
         open={Boolean(deleteCandidate)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Show</AlertDialogTitle>
-            <AlertDialogDescription>
-              {deleteCandidate
-                ? `Delete ${deleteCandidate.artist} from your logbook? This cannot be undone.`
-                : "Delete this show from your logbook? This cannot be undone."}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isConcertPending}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              disabled={isConcertPending}
-              onClick={confirmDeleteConcert}
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        onConfirm={confirmDeleteConcert}
+        pending={isConcertPending}
+      />
     </>
   );
 }

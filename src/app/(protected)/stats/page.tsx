@@ -1,25 +1,25 @@
 import { unstable_rethrow } from "next/navigation";
 
-import { LogbookLoadError } from "@/features/logbook/components/logbook-load-error";
-import { PageIntro } from "@/features/logbook/components/page-intro";
-import { StatsView } from "@/features/logbook/components/stats-view";
-import { getConcertStats } from "@/features/logbook/lib/view-model";
-import { hydrateLogbook } from "@/features/logbook/server/hydrate";
-import type { LogbookHydration } from "@/features/logbook/types";
+import { getConcertStats } from "@/features/concerts/lib/view-model";
+import type { Concert } from "@/features/concerts/types";
 import { AppMain } from "@/shared/components/layout/app-main";
+import { PageIntro } from "../_components/page-intro";
+import { ProtectedLoadError } from "../_components/protected-load-error";
+import { hydrateConcerts } from "../_lib/concert-data";
+import { StatsView } from "./_components/stats-view";
 
 export default async function StatsPage() {
-  let logbook: LogbookHydration;
+  let concerts: Concert[];
 
   try {
-    logbook = await hydrateLogbook();
+    concerts = await hydrateConcerts("/stats");
   } catch (error) {
     unstable_rethrow(error);
 
-    return <LogbookLoadError error={error} />;
+    return <ProtectedLoadError error={error} />;
   }
 
-  const stats = getConcertStats(logbook.concerts);
+  const stats = getConcertStats(concerts);
 
   return (
     <AppMain className="pb-12">

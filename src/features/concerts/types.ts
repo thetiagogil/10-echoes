@@ -1,4 +1,3 @@
-import type { CurrentUser } from "@/shared/types";
 import type { EchoesConcertRow } from "@/types/database.types";
 
 export type ConcertRow = EchoesConcertRow;
@@ -52,10 +51,5 @@ export type ConcertStats = {
 
 export type TimelineYearGroup = {
   year: string;
-  concerts: Concert[];
-};
-
-export type LogbookHydration = {
-  currentUser: CurrentUser;
   concerts: Concert[];
 };

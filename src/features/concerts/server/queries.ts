@@ -1,5 +1,5 @@
-import { mapConcert } from "@/features/logbook/server/mappers";
-import type { Concert } from "@/features/logbook/types";
+import { mapConcert } from "@/features/concerts/server/mappers";
+import type { Concert } from "@/features/concerts/types";
 import { echoes, type AppSupabaseClient } from "@/lib/supabase/schemas";
 
 const concertSelect =

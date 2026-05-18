@@ -1,4 +1,4 @@
-import type { ConcertFilter } from "@/features/logbook/types";
+import type { ConcertFilter } from "@/features/concerts/types";
 import { Input } from "@/shared/components/ui/input";
 import { Select, type SelectOption } from "@/shared/components/ui/select";
 import { cn } from "@/shared/utils/cn";

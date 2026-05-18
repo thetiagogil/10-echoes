@@ -1,10 +1,10 @@
 import { Alert } from "@/shared/components/ui/alert";
 
-type LogbookLoadErrorProps = {
+type ProtectedLoadErrorProps = {
   error: unknown;
 };
 
-export function LogbookLoadError({ error }: LogbookLoadErrorProps) {
+export function ProtectedLoadError({ error }: ProtectedLoadErrorProps) {
   return (
     <div className="mx-auto mt-32 max-w-xl px-6">
       <Alert tone="error">

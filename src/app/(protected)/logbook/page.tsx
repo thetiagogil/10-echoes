@@ -1,20 +1,20 @@
 import { unstable_rethrow } from "next/navigation";
 
-import { LogbookLoadError } from "@/features/logbook/components/logbook-load-error";
-import { LogbookView } from "@/features/logbook/components/logbook-view";
-import { hydrateLogbook } from "@/features/logbook/server/hydrate";
-import type { LogbookHydration } from "@/features/logbook/types";
+import type { Concert } from "@/features/concerts/types";
+import { ProtectedLoadError } from "../_components/protected-load-error";
+import { hydrateConcerts } from "../_lib/concert-data";
+import { LogbookView } from "./_components/logbook-view";
 
 export default async function LogbookPage() {
-  let logbook: LogbookHydration;
+  let concerts: Concert[];
 
   try {
-    logbook = await hydrateLogbook();
+    concerts = await hydrateConcerts("/logbook");
   } catch (error) {
     unstable_rethrow(error);
 
-    return <LogbookLoadError error={error} />;
+    return <ProtectedLoadError error={error} />;
   }
 
-  return <LogbookView initialConcerts={logbook.concerts} />;
+  return <LogbookView initialConcerts={concerts} />;
 }
