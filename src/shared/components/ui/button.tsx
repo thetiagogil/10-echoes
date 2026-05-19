@@ -22,11 +22,10 @@ const variants: Record<ButtonVariant, string> = {
     "bg-gradient-stage text-primary-foreground shadow-stage hover:opacity-90",
   secondary:
     "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-  outline:
-    "border border-input bg-background shadow-sm hover:bg-surface-elevated",
+  outline: "border border-input bg-background shadow-sm hover:bg-surface",
   ghost: "hover:bg-surface-elevated",
   danger:
-    "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+    "border border-destructive/20 bg-destructive/10 shadow-sm hover:bg-destructive/20",
 };
 
 const sizes: Record<ButtonSize, string> = {

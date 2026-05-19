@@ -57,7 +57,7 @@ export function ConcertCardActions({
         size="icon"
         variant="ghost"
       >
-        <Trash2 className="text-destructive h-4 w-4" />
+        <Trash2 className="h-4 w-4" />
       </Button>
     </div>
   );
