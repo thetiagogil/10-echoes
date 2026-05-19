@@ -141,7 +141,7 @@ export function AuthForm({
         <div className="w-full max-w-md">
           <Card className="p-8" gradient tone="primary">
             <div className="relative">
-              <div className="text-accent mb-2 flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase">
+              <div className="text-secondary mb-2 flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase">
                 <LockKeyhole className="h-3.5 w-3.5" />
                 {isSignup ? "new listener" : "returning listener"}
               </div>
@@ -158,7 +158,7 @@ export function AuthForm({
                 {isSignup ? (
                   <div className="space-y-1.5">
                     <Label
-                      className="text-accent font-mono text-[10px] tracking-wider uppercase"
+                      className="text-secondary font-mono text-[10px] tracking-wider uppercase"
                       htmlFor="displayName"
                       required
                     >
@@ -180,7 +180,7 @@ export function AuthForm({
 
                 <div className="space-y-1.5">
                   <Label
-                    className="text-accent font-mono text-[10px] tracking-wider uppercase"
+                    className="text-secondary font-mono text-[10px] tracking-wider uppercase"
                     htmlFor="email"
                     required
                   >
@@ -200,7 +200,7 @@ export function AuthForm({
 
                 <div className="space-y-1.5">
                   <Label
-                    className="text-accent font-mono text-[10px] tracking-wider uppercase"
+                    className="text-secondary font-mono text-[10px] tracking-wider uppercase"
                     htmlFor="password"
                     required
                   >
@@ -224,7 +224,7 @@ export function AuthForm({
                 {isSignup ? (
                   <div className="space-y-1.5">
                     <Label
-                      className="text-accent font-mono text-[10px] tracking-wider uppercase"
+                      className="text-secondary font-mono text-[10px] tracking-wider uppercase"
                       htmlFor="confirmPassword"
                       required
                     >
@@ -277,7 +277,7 @@ export function AuthForm({
               <div className="text-muted-foreground mt-4 text-center font-mono text-xs">
                 {isSignup ? "Already have an account?" : "No account yet?"}{" "}
                 <button
-                  className="text-accent underline-offset-4 hover:underline"
+                  className="text-secondary underline-offset-4 hover:underline"
                   onClick={() => switchMode(isSignup ? "signin" : "signup")}
                   type="button"
                 >

@@ -1,0 +1,35 @@
+import { User } from "lucide-react";
+
+import { getProfileInitials } from "@/features/settings/lib/profile-formatting";
+
+type ProfileSummaryPanelProps = {
+  bio: string;
+  displayName: string;
+  email: string | null;
+};
+
+export function ProfileSummaryPanel({
+  bio,
+  displayName,
+  email,
+}: ProfileSummaryPanelProps) {
+  return (
+    <section className="border-border bg-card flex items-center gap-5 rounded-xl border p-5 sm:p-6">
+      <div className="bg-gradient-stage text-primary-foreground font-display shadow-stage grid h-20 w-20 shrink-0 place-items-center rounded-full text-2xl font-bold">
+        {getProfileInitials(displayName)}
+      </div>
+      <div className="min-w-0">
+        <p className="mb-1 flex items-center gap-2 font-semibold">
+          <User className="text-primary h-4 w-4" />
+          Shared profile
+        </p>
+        <p className="text-muted-foreground truncate text-sm">
+          {email ?? "No email available"}
+        </p>
+        <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-6">
+          {bio.trim() || "Add a short bio for your live music identity."}
+        </p>
+      </div>
+    </section>
+  );
+}

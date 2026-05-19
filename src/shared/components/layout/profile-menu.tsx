@@ -67,19 +67,24 @@ export function ProfileMenu({
           ) : null}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {protectedNavLinks.map((link) => {
-          const active =
-            pathname === link.href || pathname.startsWith(`${link.href}/`);
+        <div className="md:hidden">
+          {protectedNavLinks.map((link) => {
+            const active =
+              pathname === link.href || pathname.startsWith(`${link.href}/`);
 
-          return (
-            <DropdownMenuItem asChild key={link.href}>
-              <Link aria-current={active ? "page" : undefined} href={link.href}>
-                {link.label}
-              </Link>
-            </DropdownMenuItem>
-          );
-        })}
-        <DropdownMenuSeparator />
+            return (
+              <DropdownMenuItem asChild key={link.href}>
+                <Link
+                  aria-current={active ? "page" : undefined}
+                  href={link.href}
+                >
+                  {link.label}
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
+          <DropdownMenuSeparator />
+        </div>
         <DropdownMenuItem asChild>
           <Link href="/settings">
             <Settings className="h-4 w-4" />

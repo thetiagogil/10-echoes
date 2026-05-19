@@ -3,10 +3,10 @@
 import { Loader2, Save } from "lucide-react";
 import { FormEvent, useState, useTransition } from "react";
 
+import { ProfileSummaryPanel } from "@/features/settings/components/profile-summary-panel";
 import { updateProfileSettingsAction } from "@/features/settings/server/actions";
 import { Alert } from "@/shared/components/ui/alert";
 import { Button } from "@/shared/components/ui/button";
-import { Card } from "@/shared/components/ui/card";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { Textarea } from "@/shared/components/ui/textarea";
@@ -17,10 +17,10 @@ type ProfileSettingsFormProps = {
 };
 
 export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
-  const [displayName, setDisplayName] = useState(
-    currentUser.profile.displayName,
-  );
-  const [bio, setBio] = useState(currentUser.profile.bio ?? "");
+  const initialDisplayName = currentUser.profile.displayName;
+  const initialBio = currentUser.profile.bio ?? "";
+  const [displayName, setDisplayName] = useState(initialDisplayName);
+  const [bio, setBio] = useState(initialBio);
   const [feedback, setFeedback] = useState<{
     message: string;
     tone: "error" | "success";
@@ -48,20 +48,28 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
     });
   };
 
+  const reset = () => {
+    setDisplayName(initialDisplayName);
+    setBio(initialBio);
+    setFeedback(null);
+  };
+
   return (
-    <Card as="section" className="max-w-2xl p-6 sm:p-8">
-      <form className="space-y-5" onSubmit={submit}>
+    <form className="space-y-8" onSubmit={submit}>
+      <ProfileSummaryPanel
+        bio={bio}
+        displayName={displayName}
+        email={currentUser.email}
+      />
+
+      <section className="space-y-5">
         <div>
           <h2 className="font-display text-3xl font-bold">Profile</h2>
           <p className="text-muted-foreground mt-2 text-sm leading-6">
-            These details are stored in your shared profile and can be reused
-            across shared apps.
+            These details are stored in your shared core profile and can be
+            reused across shared apps.
           </p>
         </div>
-
-        {feedback ? (
-          <Alert tone={feedback.tone}>{feedback.message}</Alert>
-        ) : null}
 
         <div className="grid gap-1.5">
           <Label htmlFor="email">Email</Label>
@@ -98,18 +106,28 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
             {bio.length}/500
           </p>
         </div>
+      </section>
 
-        <div className="flex justify-end">
-          <Button disabled={isPending} type="submit" variant="gradient">
-            {isPending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Save className="h-4 w-4" />
-            )}
-            Save profile
-          </Button>
-        </div>
-      </form>
-    </Card>
+      {feedback ? <Alert tone={feedback.tone}>{feedback.message}</Alert> : null}
+
+      <div className="border-border flex items-center justify-end gap-3 border-t pt-4">
+        <Button
+          disabled={isPending}
+          onClick={reset}
+          type="button"
+          variant="ghost"
+        >
+          Reset
+        </Button>
+        <Button disabled={isPending} type="submit">
+          {isPending ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Save className="h-4 w-4" />
+          )}
+          Save profile
+        </Button>
+      </div>
+    </form>
   );
 }

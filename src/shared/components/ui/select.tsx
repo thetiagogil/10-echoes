@@ -48,7 +48,7 @@ export function Select({
       >
         <SelectPrimitive.Trigger
           className={cn(
-            "border-border bg-background/50 text-foreground hover:border-primary/50 focus-visible:border-secondary focus-visible:ring-ring data-[placeholder]:text-muted-foreground flex h-10 w-full items-center justify-between gap-3 rounded-md border py-1 pr-10 pl-3 text-sm font-semibold shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+            "border-border bg-background/50 text-foreground hover:border-primary/50 focus-visible:border-secondary focus-visible:ring-ring data-[placeholder]:text-muted-foreground relative flex h-10 w-full items-center rounded-md border py-1 pr-10 pl-3 text-sm font-semibold shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span:first-child]:truncate",
             hasValue && "pr-16",
             className,
           )}
@@ -57,7 +57,7 @@ export function Select({
         >
           <SelectPrimitive.Value placeholder={placeholder} />
           <SelectPrimitive.Icon asChild>
-            <ChevronDown className="text-muted-foreground h-4 w-4" />
+            <ChevronDown className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2" />
           </SelectPrimitive.Icon>
         </SelectPrimitive.Trigger>
 

@@ -59,7 +59,7 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
       <AppMain className="pb-12">
         <PageIntro
           actions={
-            <Button onClick={openCreateForm} size="lg" variant="gradient">
+            <Button onClick={openCreateForm} size="lg">
               <Plus className="h-4 w-4" />
               Log a show
             </Button>
@@ -75,6 +75,7 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
         <LogbookActionFeedback message={feedback} />
         <LogbookControls
           activeFilter={activeFilter}
+          hasConcerts={concerts.length > 0}
           onFilterChange={setActiveFilter}
           onQueryChange={setQuery}
           onTagChange={setTag}

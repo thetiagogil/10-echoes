@@ -25,14 +25,10 @@ export default function Home() {
       <AppHeader
         actions={
           <>
-            <ButtonLink href="/auth?next=/logbook" size="sm" variant="ghost">
+            <ButtonLink href="/auth" size="sm" variant="ghost">
               Log in
             </ButtonLink>
-            <ButtonLink
-              href="/auth?mode=signup&next=/logbook"
-              size="sm"
-              variant="gradient"
-            >
+            <ButtonLink href="/auth?mode=signup" size="sm">
               Sign up
             </ButtonLink>
           </>
@@ -40,36 +36,36 @@ export default function Home() {
       />
 
       <main>
-        <section className="relative overflow-hidden pt-20">
+        <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
               alt=""
-              className="object-cover opacity-45"
+              className="object-cover opacity-40"
               fill
               priority
               sizes="100vw"
               src="/hero-concert.jpg"
             />
-            <div className="from-background/35 via-background/78 to-background absolute inset-0 bg-linear-to-b" />
+            <div className="from-background/40 via-background/70 to-background absolute inset-0 bg-linear-to-b" />
           </div>
 
-          <div className="relative mx-auto flex min-h-[calc(100dvh-8rem)] max-w-6xl flex-col justify-center px-6 py-16 md:py-24">
-            <p className="text-secondary mb-6 font-mono text-xs uppercase">
+          <div className="relative mx-auto max-w-6xl px-6 pt-24 pb-32 md:pt-32 md:pb-44">
+            <p className="text-secondary mb-6 font-mono text-xs tracking-[0.3em] uppercase">
               Echoes - a journal for live music
             </p>
-            <h1 className="font-display max-w-4xl text-5xl leading-[0.95] font-black sm:text-6xl md:text-7xl lg:text-8xl">
-              Every show you&apos;ve{" "}
-              <em className="text-gradient-stage not-italic">ever</em> been to.
+            <h1 className="max-w-4xl text-5xl leading-[0.95] font-black tracking-tight md:text-7xl lg:text-8xl">
+              Every show you&apos;ve <br />
+              <em className="text-gradient-stage not-italic">ever</em> been to.{" "}
               <br />
-              Every one you&apos;re{" "}
+              Every one you&apos;re <br />
               <em className="text-secondary font-light italic">about</em> to.
             </h1>
-            <p className="text-muted-foreground mt-8 max-w-xl text-base leading-7 sm:text-lg sm:leading-8">
+            <p className="text-muted-foreground mt-8 max-w-xl text-lg leading-relaxed">
               Keep artists, venues, setlists, ratings, and the kind of memories
               you only get when the lights go down in one private archive.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/auth?mode=signup&next=/logbook" size="lg">
+            <div className="mt-10 flex flex-wrap gap-3">
+              <ButtonLink href="/auth?mode=signup" size="lg">
                 Open your logbook
                 <ArrowRight className="h-4 w-4" />
               </ButtonLink>
@@ -108,11 +104,8 @@ export default function Home() {
         </section>
 
         <section className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <p className="font-display text-3xl leading-snug italic md:text-4xl">
-            There is a reason we still keep ticket stubs.{" "}
-            <span className="text-gradient-stage">
-              A song heard live becomes part of a life lived.
-            </span>
+          <p className="font-display text-gradient-stage text-3xl leading-snug italic md:text-4xl">
+            A song heard live becomes part of a life lived.
           </p>
         </section>
 

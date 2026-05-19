@@ -14,6 +14,7 @@ const filterOptions: Array<{ value: ConcertFilter; label: string }> = [
 
 type LogbookControlsProps = {
   activeFilter: ConcertFilter;
+  hasConcerts: boolean;
   query: string;
   tag: string;
   tagOptions: SelectOption[];
@@ -27,6 +28,7 @@ type LogbookControlsProps = {
 
 export function LogbookControls({
   activeFilter,
+  hasConcerts,
   query,
   tag,
   tagOptions,
@@ -37,17 +39,21 @@ export function LogbookControls({
   onTagChange,
   onYearChange,
 }: LogbookControlsProps) {
+  const yearDisabled = !hasConcerts || (yearOptions.length === 0 && !year);
+  const tagDisabled = !hasConcerts || (tagOptions.length === 0 && !tag);
+
   return (
-    <section className="mb-8 grid gap-3 lg:grid-cols-[minmax(280px,0.8fr)_minmax(260px,1fr)_150px_170px]">
-      <div className="border-border bg-card inline-flex w-full items-center gap-1 rounded-lg border p-1">
+    <section className="mb-8 flex flex-wrap items-center gap-3">
+      <div className="border-border bg-card inline-flex h-10 w-full items-center gap-1 rounded-lg border p-1 sm:w-auto">
         {filterOptions.map(({ label, value }) => (
           <button
             className={cn(
-              "h-9 flex-1 rounded-md px-4 text-sm font-semibold capitalize transition sm:flex-none",
+              "h-8 flex-1 rounded-md px-4 text-sm font-semibold capitalize transition disabled:pointer-events-none disabled:opacity-50 sm:flex-none",
               activeFilter === value
                 ? "bg-gradient-stage text-primary-foreground shadow-stage"
                 : "text-muted-foreground hover:text-foreground",
             )}
+            disabled={!hasConcerts}
             key={value}
             onClick={() => onFilterChange(value)}
             type="button"
@@ -57,11 +63,12 @@ export function LogbookControls({
         ))}
       </div>
 
-      <div className="relative">
+      <div className="relative min-w-[220px] flex-1">
         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           aria-label="Search logbook"
-          className="pl-9"
+          className="bg-card pl-9"
+          disabled={!hasConcerts}
           onChange={(event) => onQueryChange(event.target.value)}
           placeholder="Search artist, venue, notes, tags..."
           value={query}
@@ -69,17 +76,21 @@ export function LogbookControls({
       </div>
       <Select
         aria-label="Filter by year"
+        disabled={yearDisabled}
         onValueChange={onYearChange}
         options={yearOptions}
         placeholder="Any year"
         value={year}
+        wrapperClassName="w-full sm:w-36"
       />
       <Select
         aria-label="Filter by tag"
+        disabled={tagDisabled}
         onValueChange={onTagChange}
         options={tagOptions}
         placeholder="Any tag"
         value={tag}
+        wrapperClassName="w-full sm:w-[10.5rem]"
       />
     </section>
   );

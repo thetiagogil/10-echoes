@@ -60,7 +60,7 @@ export function ConcertCardFront({
             {concert.city ? ` - ${concert.city}` : ""}
           </span>
         </p>
-        <p className="text-muted-foreground flex items-center gap-2 font-mono text-xs">
+        <p className="text-foreground/80 flex items-center gap-2 font-mono text-xs">
           {wishlist ? (
             <Heart className="h-4 w-4 shrink-0" />
           ) : (

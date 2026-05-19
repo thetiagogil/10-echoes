@@ -4,7 +4,6 @@ import { cn } from "@/shared/utils/cn";
 
 export type ButtonVariant =
   | "primary"
-  | "gradient"
   | "secondary"
   | "outline"
   | "ghost"
@@ -19,25 +18,22 @@ type ButtonStyleProps = {
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonStyleProps;
 
 const variants: Record<ButtonVariant, string> = {
-  gradient:
-    "border-transparent bg-gradient-stage text-primary-foreground shadow-stage hover:saturate-125",
   primary:
-    "border-primary bg-primary text-primary-foreground shadow-stage hover:border-secondary hover:bg-secondary hover:text-secondary-foreground",
+    "bg-gradient-stage text-primary-foreground shadow-stage hover:opacity-90",
   secondary:
-    "border-border bg-card text-foreground hover:border-accent hover:bg-surface-elevated",
+    "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
   outline:
-    "border-border bg-background/60 text-foreground hover:border-secondary hover:bg-secondary hover:text-secondary-foreground",
-  ghost:
-    "border-transparent bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
+    "border border-input bg-background shadow-sm hover:bg-surface-elevated",
+  ghost: "hover:bg-surface-elevated",
   danger:
-    "border-destructive bg-destructive text-destructive-foreground hover:border-destructive hover:bg-primary",
+    "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-xs",
-  md: "h-9 px-4 text-sm",
-  lg: "h-10 px-5 text-sm",
-  icon: "h-9 w-9 p-0",
+  sm: "h-8 rounded-md px-3 text-xs",
+  md: "h-9 px-4 py-2",
+  lg: "h-10 rounded-md px-8",
+  icon: "h-9 w-9",
 };
 
 export function buttonVariants({
@@ -46,7 +42,7 @@ export function buttonVariants({
   variant = "primary",
 }: ButtonStyleProps & { className?: string } = {}) {
   return cn(
-    "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md border font-semibold transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:saturate-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     variants[variant],
     sizes[size],
     className,

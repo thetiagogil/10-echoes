@@ -7,12 +7,12 @@ export default async function SettingsPage() {
   const currentUser = await requireUser();
 
   return (
-    <AppMain className="pb-12">
+    <AppMain className="max-w-3xl pb-12">
       <PageIntro
-        description="Manage the shared profile details Echoes can show in your private app shell."
+        description="This is your concert-going identity across the shared app workspace."
         title={
           <>
-            Account <span className="text-gradient-stage">settings</span>.
+            Settings<span className="text-gradient-stage">.</span>
           </>
         }
       />
