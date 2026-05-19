@@ -18,7 +18,7 @@ export function ConcertCardBack({
   songs,
 }: ConcertCardBackProps) {
   return (
-    <div className="grain border-border bg-card shadow-card absolute inset-0 flex [transform:rotateY(180deg)] flex-col overflow-hidden rounded-lg border [backface-visibility:hidden]">
+    <div className="grain border-border bg-card shadow-card !absolute inset-0 flex [transform:rotateY(180deg)] flex-col overflow-hidden rounded-lg border [backface-visibility:hidden]">
       <ConcertCardTicketTear />
       <header className="border-border/70 flex min-h-[92px] items-start justify-between gap-4 border-b border-dashed p-5">
         <div className="min-w-0">
