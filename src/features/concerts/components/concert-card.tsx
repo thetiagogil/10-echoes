@@ -36,12 +36,12 @@ export function ConcertCard({
     : [];
 
   return (
-    <article className="group relative min-h-[430px] [perspective:1200px]">
+    <article className="group relative min-h-107.5 perspective-distant">
       <div className="bg-gradient-stage absolute -inset-px rounded-lg opacity-0 blur-xl transition-opacity group-hover:opacity-40" />
       <div
         className={cn(
-          "relative h-full min-h-[430px] transition-transform duration-500 [transform-style:preserve-3d]",
-          flipped && "[transform:rotateY(180deg)]",
+          "relative h-full min-h-107.5 transform-3d transition-transform duration-500",
+          flipped && "transform-[rotateY(180deg)]",
         )}
       >
         <ConcertCardFront

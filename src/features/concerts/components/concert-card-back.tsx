@@ -18,9 +18,9 @@ export function ConcertCardBack({
   songs,
 }: ConcertCardBackProps) {
   return (
-    <div className="grain border-border bg-card shadow-card !absolute inset-0 flex [transform:rotateY(180deg)] flex-col overflow-hidden rounded-lg border [backface-visibility:hidden]">
+    <div className="grain border-border bg-card shadow-card absolute! inset-0 flex transform-[rotateY(180deg)] flex-col overflow-hidden rounded-lg border backface-hidden">
       <ConcertCardTicketTear />
-      <header className="border-border/70 flex min-h-[92px] items-start justify-between gap-4 border-b border-dashed p-5">
+      <header className="border-border/70 flex min-h-23 items-start justify-between gap-4 border-b border-dashed p-5">
         <div className="min-w-0">
           <p className="text-muted-foreground mb-1 flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] uppercase">
             <ListMusic className="h-3.5 w-3.5" />
@@ -43,7 +43,7 @@ export function ConcertCardBack({
 
       <div className="flex flex-1 flex-col p-5 pt-6">
         {songs.length > 0 ? (
-          <ol className="text-foreground/85 max-h-[250px] space-y-2 overflow-y-auto pr-1 font-mono text-xs">
+          <ol className="text-foreground/85 max-h-62.5 space-y-2 overflow-y-auto pr-1 font-mono text-xs">
             {songs.map((song, index) => (
               <li
                 className="border-border/50 bg-background/35 grid grid-cols-[2rem_minmax(0,1fr)] gap-3 rounded-md border px-3 py-2"

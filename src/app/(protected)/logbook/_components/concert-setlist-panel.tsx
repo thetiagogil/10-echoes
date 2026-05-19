@@ -11,7 +11,7 @@ export function ConcertSetlistPanel({ songs }: ConcertSetlistPanelProps) {
         <Music2 className="h-3.5 w-3.5" />
         Setlist
       </h2>
-      <div className="border-border/50 bg-background/45 mt-3 max-h-[420px] overflow-y-auto rounded-lg border px-3 py-3">
+      <div className="border-border/50 bg-background/45 mt-3 max-h-105 overflow-y-auto rounded-lg border px-3 py-3">
         {songs.length > 0 ? (
           <ol className="text-foreground/85 space-y-2 font-mono text-xs">
             {songs.map((song, index) => (

@@ -71,7 +71,7 @@ export function TagPicker({
               </button>
             </span>
           ))}
-          <div className="flex min-w-[12rem] flex-1 items-center gap-2">
+          <div className="flex min-w-48 flex-1 items-center gap-2">
             <Tag className="text-muted-foreground h-4 w-4" />
             <input
               autoComplete="off"

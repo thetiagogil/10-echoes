@@ -32,10 +32,10 @@ export function ConcertCardFront({
   wishlist,
 }: ConcertCardFrontProps) {
   return (
-    <div className="grain border-border bg-card shadow-card !absolute inset-0 flex flex-col overflow-hidden rounded-lg border [backface-visibility:hidden]">
+    <div className="grain border-border bg-card shadow-card absolute! inset-0 flex flex-col overflow-hidden rounded-lg border backface-hidden">
       <ConcertCardTicketTear />
 
-      <header className="border-border/70 flex min-h-[92px] items-start justify-between gap-4 border-b border-dashed p-5">
+      <header className="border-border/70 flex min-h-23 items-start justify-between gap-4 border-b border-dashed p-5">
         <div className="min-w-0">
           <p className="text-muted-foreground mb-1 font-mono text-[10px] tracking-[0.18em] uppercase">
             {status}
@@ -94,7 +94,7 @@ export function ConcertCardFront({
             : null}
         </div>
 
-        <div className="min-h-[118px]">
+        <div className="min-h-29.5">
           {concert.notes ? (
             <p className="text-muted-foreground line-clamp-3 text-sm leading-6 italic">
               &quot;{concert.notes}&quot;

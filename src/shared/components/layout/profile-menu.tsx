@@ -43,7 +43,7 @@ export function ProfileMenu({
       <DropdownMenuTrigger asChild>
         <Button
           aria-label="Open account menu"
-          className="max-w-[13rem] justify-between px-3"
+          className="max-w-52 justify-between px-3"
           disabled={isPending}
           variant="outline"
         >

@@ -48,7 +48,7 @@ export function Select({
       >
         <SelectPrimitive.Trigger
           className={cn(
-            "border-border bg-background/50 text-foreground hover:border-primary/50 focus-visible:border-secondary focus-visible:ring-ring data-[placeholder]:text-muted-foreground relative flex h-10 w-full items-center rounded-md border py-1 pr-10 pl-3 text-sm font-semibold shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span:first-child]:truncate",
+            "border-border bg-background/50 text-foreground hover:border-primary/50 focus-visible:border-secondary focus-visible:ring-ring data-placeholder:text-muted-foreground relative flex h-10 w-full items-center rounded-md border py-1 pr-10 pl-3 text-sm font-semibold shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span:first-child]:truncate",
             hasValue && "pr-16",
             className,
           )}
@@ -63,7 +63,7 @@ export function Select({
 
         <SelectPrimitive.Portal>
           <SelectPrimitive.Content
-            className="border-border bg-popover text-popover-foreground shadow-card z-50 max-h-56 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border"
+            className="border-border bg-popover text-popover-foreground shadow-card z-50 max-h-56 min-w-(--radix-select-trigger-width) overflow-hidden rounded-md border"
             position="popper"
             sideOffset={6}
           >
@@ -71,7 +71,7 @@ export function Select({
               {options.map((option) => (
                 <SelectPrimitive.Item
                   className={cn(
-                    "focus:bg-accent focus:text-accent-foreground data-[disabled]:text-muted-foreground relative flex cursor-default items-center rounded-sm py-2 pr-8 pl-2 text-sm transition-colors outline-none select-none data-[disabled]:pointer-events-none",
+                    "focus:bg-accent focus:text-accent-foreground data-disabled:text-muted-foreground relative flex cursor-default items-center rounded-sm py-2 pr-8 pl-2 text-sm transition-colors outline-none select-none data-disabled:pointer-events-none",
                     option.value === value && "text-secondary",
                   )}
                   disabled={option.disabled}
