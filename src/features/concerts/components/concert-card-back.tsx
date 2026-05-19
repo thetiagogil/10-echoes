@@ -1,8 +1,8 @@
-import { ListMusic, RotateCcw } from "lucide-react";
+import { ListMusic } from "lucide-react";
 
 import { ConcertCardTicketTear } from "@/features/concerts/components/concert-card-ticket-tear";
 import type { Concert } from "@/features/concerts/types";
-import { Button } from "@/shared/components/ui/button";
+import { cn } from "@/shared/utils/cn";
 
 type ConcertCardBackProps = {
   concert: Concert;
@@ -18,30 +18,32 @@ export function ConcertCardBack({
   songs,
 }: ConcertCardBackProps) {
   return (
-    <div className="grain border-border bg-card shadow-card absolute! inset-0 flex transform-[rotateY(180deg)] flex-col overflow-hidden rounded-lg border backface-hidden">
+    <div
+      className={cn(
+        "grain border-border bg-card shadow-card absolute! inset-0 flex transform-[rotateY(180deg)] flex-col overflow-hidden rounded-lg border transition-colors backface-hidden",
+        disabled ? "cursor-default" : "hover:border-primary/45 cursor-pointer",
+      )}
+    >
+      <button
+        aria-label={`Show ${concert.artist} summary`}
+        className="focus-visible:ring-primary/70 absolute inset-0 z-0 appearance-none rounded-lg border-0 bg-transparent p-0 focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset disabled:cursor-default"
+        disabled={disabled}
+        onClick={onFlipBack}
+        type="button"
+      />
       <ConcertCardTicketTear />
-      <header className="border-border/70 flex min-h-23 items-start justify-between gap-4 border-b border-dashed p-5">
+      <header className="border-border/70 pointer-events-none relative z-10 flex min-h-23 items-start justify-between gap-4 border-b border-dashed p-5">
         <div className="min-w-0">
           <p className="text-muted-foreground mb-1 flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] uppercase">
-            <ListMusic className="h-3.5 w-3.5" />
             Setlist
           </p>
-          <h3 className="font-display truncate text-2xl leading-tight font-bold">
+          <h3 className="font-display group-hover:text-primary truncate text-2xl leading-tight font-bold transition-colors">
             {concert.artist}
           </h3>
         </div>
-        <Button
-          aria-label={`Show ${concert.artist} summary`}
-          disabled={disabled}
-          onClick={onFlipBack}
-          size="icon"
-          variant="ghost"
-        >
-          <RotateCcw className="h-4 w-4" />
-        </Button>
       </header>
 
-      <div className="flex flex-1 flex-col p-5 pt-6">
+      <div className="pointer-events-none relative z-10 flex flex-1 flex-col p-5 pt-6">
         {songs.length > 0 ? (
           <ol className="text-foreground/85 max-h-62.5 space-y-2 overflow-y-auto pr-1 font-mono text-xs">
             {songs.map((song, index) => (

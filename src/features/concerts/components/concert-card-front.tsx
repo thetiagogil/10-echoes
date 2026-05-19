@@ -1,5 +1,4 @@
 import { CalendarDays, Heart, MapPin, Star } from "lucide-react";
-import Link from "next/link";
 
 import { ConcertCardActions } from "@/features/concerts/components/concert-card-actions";
 import { ConcertCardTicketTear } from "@/features/concerts/components/concert-card-ticket-tear";
@@ -9,6 +8,7 @@ import {
 } from "@/features/concerts/lib/concerts";
 import type { Concert } from "@/features/concerts/types";
 import { Badge } from "@/shared/components/ui/badge";
+import { cn } from "@/shared/utils/cn";
 
 type ConcertCardFrontProps = {
   concert: Concert;
@@ -32,27 +32,36 @@ export function ConcertCardFront({
   wishlist,
 }: ConcertCardFrontProps) {
   return (
-    <div className="grain border-border bg-card shadow-card absolute! inset-0 flex flex-col overflow-hidden rounded-lg border backface-hidden">
+    <div
+      className={cn(
+        "grain border-border bg-card shadow-card absolute! inset-0 flex flex-col overflow-hidden rounded-lg border backface-hidden transition-colors",
+        disabled ? "cursor-default" : "cursor-pointer hover:border-primary/45",
+      )}
+    >
+      <button
+        aria-label={`Show ${concert.artist} setlist`}
+        className="absolute inset-0 z-0 appearance-none rounded-lg border-0 bg-transparent p-0 focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-inset focus-visible:outline-hidden disabled:cursor-default"
+        disabled={disabled}
+        onClick={onFlip}
+        type="button"
+      />
       <ConcertCardTicketTear />
 
-      <header className="border-border/70 flex min-h-23 items-start justify-between gap-4 border-b border-dashed p-5">
+      <header className="border-border/70 pointer-events-none relative z-10 flex min-h-23 items-start justify-between gap-4 border-b border-dashed p-5">
         <div className="min-w-0">
           <p className="text-muted-foreground mb-1 font-mono text-[10px] tracking-[0.18em] uppercase">
             {status}
           </p>
-          <Link
-            className="font-display hover:text-primary block truncate text-2xl leading-tight font-bold transition-colors"
-            href={`/logbook/${concert.id}`}
-          >
+          <h3 className="font-display group-hover:text-primary truncate text-2xl leading-tight font-bold transition-colors">
             {concert.artist}
-          </Link>
+          </h3>
         </div>
         <Badge variant={wishlist ? "surface" : past ? "accent" : "primary"}>
           {wishlist ? "Wish" : past ? "Stub" : "Plan"}
         </Badge>
       </header>
 
-      <div className="relative flex flex-1 flex-col gap-3 p-5 pt-6">
+      <div className="pointer-events-none relative z-10 flex flex-1 flex-col gap-3 p-5 pt-6">
         <p className="flex items-center gap-2 text-sm">
           <MapPin className="text-primary h-4 w-4 shrink-0" />
           <span className="truncate">
@@ -112,7 +121,6 @@ export function ConcertCardFront({
           href={`/logbook/${concert.id}`}
           onDelete={onDelete}
           onEdit={onEdit}
-          onFlip={onFlip}
         />
       </div>
     </div>
