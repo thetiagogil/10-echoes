@@ -48,7 +48,7 @@ export function TagPicker({
       <Label htmlFor="tags">Tags</Label>
       <div
         className={cn(
-          "border-border bg-background/50 relative rounded-md border px-3 py-2 shadow-sm transition-colors",
+          "border-border bg-card relative rounded-lg border px-3 py-2 shadow-sm transition-colors hover:border-primary/50",
           focused && "border-secondary ring-ring ring-1",
           disabled && "opacity-50",
         )}
@@ -102,7 +102,7 @@ export function TagPicker({
         </div>
 
         {focused && (options.matchingTags.length > 0 || options.canCreate) ? (
-          <div className="border-border bg-popover shadow-card absolute top-[calc(100%+0.375rem)] right-0 left-0 z-40 overflow-hidden rounded-md border p-1">
+          <div className="scrollbar-themed border-border bg-popover shadow-card absolute top-[calc(100%+0.375rem)] right-0 left-0 z-40 max-h-56 overflow-y-auto overscroll-contain rounded-md border p-1">
             {options.matchingTags.map((tag) => (
               <button
                 className="hover:bg-accent hover:text-accent-foreground flex w-full items-center rounded-sm px-2 py-2 text-left text-sm transition"

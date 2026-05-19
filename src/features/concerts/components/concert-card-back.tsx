@@ -1,5 +1,3 @@
-import { ListMusic } from "lucide-react";
-
 import { ConcertCardTicketTear } from "@/features/concerts/components/concert-card-ticket-tear";
 import type { Concert } from "@/features/concerts/types";
 import { cn } from "@/shared/utils/cn";

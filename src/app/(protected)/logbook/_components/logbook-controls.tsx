@@ -44,14 +44,14 @@ export function LogbookControls({
 
   return (
     <section className="mb-8 flex flex-wrap items-center gap-3">
-      <div className="border-border bg-card inline-flex h-10 w-full items-center gap-1 rounded-lg border p-1 sm:w-auto">
+      <div className="border-border bg-card inline-flex h-10 w-full items-center gap-1 rounded-lg border p-1 shadow-sm transition-colors sm:w-auto">
         {filterOptions.map(({ label, value }) => (
           <button
             className={cn(
-              "h-8 flex-1 rounded-md px-4 text-sm font-semibold capitalize transition disabled:pointer-events-none disabled:opacity-50 sm:flex-none",
+              "h-8 flex-1 rounded-md px-4 text-sm font-semibold capitalize transition-colors disabled:pointer-events-none disabled:opacity-50 sm:flex-none",
               activeFilter === value
                 ? "bg-gradient-stage text-primary-foreground shadow-stage"
-                : "text-muted-foreground hover:text-foreground",
+                : "text-muted-foreground hover:bg-surface-elevated hover:text-foreground",
             )}
             disabled={!hasConcerts}
             key={value}
@@ -67,7 +67,7 @@ export function LogbookControls({
         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           aria-label="Search logbook"
-          className="bg-card pl-9"
+          className="pl-9"
           disabled={!hasConcerts}
           onChange={(event) => onQueryChange(event.target.value)}
           placeholder="Search artist, venue, notes, tags..."

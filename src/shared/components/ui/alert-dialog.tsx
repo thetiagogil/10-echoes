@@ -35,13 +35,17 @@ const AlertDialogContent = forwardRef<
     <AlertDialogOverlay />
     <AlertDialogPrimitive.Content
       className={cn(
-        "fixed top-1/2 left-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 focus-visible:outline-none",
+        "fixed top-1/2 left-1/2 z-50 max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden focus-visible:outline-none",
         className,
       )}
       ref={ref}
       {...props}
     >
-      <Card className="p-6" gradient tone="danger">
+      <Card
+        className="scrollbar-themed max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain p-6"
+        gradient
+        tone="danger"
+      >
         {children}
       </Card>
     </AlertDialogPrimitive.Content>

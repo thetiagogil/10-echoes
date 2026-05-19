@@ -48,7 +48,7 @@ export function Select({
       >
         <SelectPrimitive.Trigger
           className={cn(
-            "border-border bg-background/50 text-foreground hover:border-primary/50 focus-visible:border-secondary focus-visible:ring-ring data-placeholder:text-muted-foreground relative flex h-10 w-full items-center rounded-md border py-1 pr-10 pl-3 text-sm font-semibold shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span:first-child]:truncate",
+            "border-border bg-card text-foreground hover:border-primary/50 focus-visible:border-secondary focus-visible:ring-ring data-placeholder:text-muted-foreground relative flex h-10 w-full items-center rounded-lg border py-1 pr-10 pl-3 text-sm font-semibold shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span:first-child]:truncate",
             hasValue && "pr-16",
             className,
           )}
@@ -63,11 +63,11 @@ export function Select({
 
         <SelectPrimitive.Portal>
           <SelectPrimitive.Content
-            className="border-border bg-popover text-popover-foreground shadow-card z-50 max-h-56 min-w-(--radix-select-trigger-width) overflow-hidden rounded-md border"
+            className="border-border bg-popover text-popover-foreground shadow-card z-50 min-w-(--radix-select-trigger-width) overflow-hidden rounded-md border"
             position="popper"
             sideOffset={6}
           >
-            <SelectPrimitive.Viewport className="p-1">
+            <SelectPrimitive.Viewport className="scrollbar-themed max-h-56 overflow-y-auto overscroll-contain p-1">
               {options.map((option) => (
                 <SelectPrimitive.Item
                   className={cn(
