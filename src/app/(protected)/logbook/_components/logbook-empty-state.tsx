@@ -32,9 +32,9 @@ export function LogbookEmptyState({
   const empty = copy[filter];
 
   return (
-    <section className="rounded-xl border border-dashed border-border p-12 text-center">
+    <section className="border-border rounded-xl border border-dashed p-12 text-center">
       <p className="font-display text-3xl font-bold">{empty.title}</p>
-      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
+      <p className="text-muted-foreground mx-auto mt-2 max-w-md text-sm leading-6">
         {empty.body}
       </p>
       <Button className="mt-6" onClick={onCreate}>

@@ -1,11 +1,4 @@
-import {
-  CalendarDays,
-  Edit3,
-  Heart,
-  MapPin,
-  Star,
-  Trash2,
-} from "lucide-react";
+import { CalendarDays, Edit3, Heart, MapPin, Star, Trash2 } from "lucide-react";
 
 import {
   formatConcertDate,
@@ -37,7 +30,7 @@ export function ConcertDetailHeader({
   const rating = concert.rating ?? 0;
 
   return (
-    <header className="border-b border-dashed border-border/70 p-5 sm:p-7">
+    <header className="border-border/70 border-b border-dashed p-5 sm:p-7">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -50,16 +43,16 @@ export function ConcertDetailHeader({
               </Badge>
             ))}
           </div>
-          <h1 className="font-display text-4xl font-black leading-none sm:text-6xl">
+          <h1 className="font-display text-4xl leading-none font-black sm:text-6xl">
             {concert.artist}
           </h1>
-          <p className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
             <span className="inline-flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-primary" />
+              <MapPin className="text-primary h-4 w-4" />
               {concert.venue}
               {concert.city ? ` - ${concert.city}` : ""}
             </span>
-            <span className="inline-flex items-center gap-2 font-mono text-secondary">
+            <span className="text-secondary inline-flex items-center gap-2 font-mono">
               {wishlist ? (
                 <Heart className="h-4 w-4" />
               ) : (
@@ -88,14 +81,14 @@ export function ConcertDetailHeader({
             <Star
               className={
                 index < rating
-                  ? "h-5 w-5 fill-secondary text-secondary"
-                  : "h-5 w-5 text-muted-foreground/30"
+                  ? "fill-secondary text-secondary h-5 w-5"
+                  : "text-muted-foreground/30 h-5 w-5"
               }
               key={index}
             />
           ))
         ) : (
-          <span className="text-sm italic text-muted-foreground">
+          <span className="text-muted-foreground text-sm italic">
             No rating recorded.
           </span>
         )}

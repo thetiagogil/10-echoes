@@ -25,7 +25,6 @@ export default async function TimelinePage() {
     <AppMain className="pb-12">
       <PageIntro
         description="Your concert life in chronological order: past shows as memory, future shows as anticipation."
-        eyebrow="Chronology"
         title={
           <>
             The <span className="text-gradient-stage">timeline</span>.

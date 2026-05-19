@@ -4,9 +4,7 @@ type LogbookActionFeedbackProps = {
   message: string | null;
 };
 
-export function LogbookActionFeedback({
-  message,
-}: LogbookActionFeedbackProps) {
+export function LogbookActionFeedback({ message }: LogbookActionFeedbackProps) {
   if (!message) return null;
 
   return (

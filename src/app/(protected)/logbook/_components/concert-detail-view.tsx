@@ -27,9 +27,7 @@ type ConcertDetailViewProps = {
   initialConcert: Concert;
 };
 
-export function ConcertDetailView({
-  initialConcert,
-}: ConcertDetailViewProps) {
+export function ConcertDetailView({ initialConcert }: ConcertDetailViewProps) {
   const router = useRouter();
   const [concert, setConcert] = useState(initialConcert);
   const [editing, setEditing] = useState<Concert | null>(null);
@@ -93,7 +91,7 @@ export function ConcertDetailView({
 
         <LogbookActionFeedback message={feedback} />
 
-        <article className="grain overflow-hidden rounded-xl border border-border bg-card shadow-card">
+        <article className="grain border-border bg-card shadow-card overflow-hidden rounded-xl border">
           <ConcertDetailHeader
             concert={concert}
             disabled={isPending}
@@ -104,7 +102,7 @@ export function ConcertDetailView({
             wishlist={wishlist}
           />
 
-          <div className="grid gap-6 p-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.65fr)] sm:p-7">
+          <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.65fr)]">
             <ConcertNotesPanel notes={concert.notes} />
             <ConcertSetlistPanel songs={songs} />
             <ConcertMetadataPanel concert={concert} status={status} />
@@ -113,6 +111,7 @@ export function ConcertDetailView({
       </AppMain>
 
       <ConcertForm
+        availableTags={concert.tags}
         editing={editing}
         key={editing?.id ?? "closed"}
         onClose={() => {

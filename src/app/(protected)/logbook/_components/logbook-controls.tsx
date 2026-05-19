@@ -1,3 +1,5 @@
+import { Search } from "lucide-react";
+
 import type { ConcertFilter } from "@/features/concerts/types";
 import { Input } from "@/shared/components/ui/input";
 import { Select, type SelectOption } from "@/shared/components/ui/select";
@@ -36,8 +38,8 @@ export function LogbookControls({
   onYearChange,
 }: LogbookControlsProps) {
   return (
-    <section className="mb-8 space-y-3">
-      <div className="inline-flex w-full items-center gap-1 rounded-lg border border-border bg-card p-1 sm:w-auto">
+    <section className="mb-8 grid gap-3 lg:grid-cols-[minmax(280px,0.8fr)_minmax(260px,1fr)_150px_170px]">
+      <div className="border-border bg-card inline-flex w-full items-center gap-1 rounded-lg border p-1">
         {filterOptions.map(({ label, value }) => (
           <button
             className={cn(
@@ -55,28 +57,30 @@ export function LogbookControls({
         ))}
       </div>
 
-      <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_160px_190px]">
+      <div className="relative">
+        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           aria-label="Search logbook"
+          className="pl-9"
           onChange={(event) => onQueryChange(event.target.value)}
           placeholder="Search artist, venue, notes, tags..."
           value={query}
         />
-        <Select
-          aria-label="Filter by year"
-          onValueChange={onYearChange}
-          options={yearOptions}
-          placeholder="Any year"
-          value={year}
-        />
-        <Select
-          aria-label="Filter by tag"
-          onValueChange={onTagChange}
-          options={tagOptions}
-          placeholder="Any tag"
-          value={tag}
-        />
       </div>
+      <Select
+        aria-label="Filter by year"
+        onValueChange={onYearChange}
+        options={yearOptions}
+        placeholder="Any year"
+        value={year}
+      />
+      <Select
+        aria-label="Filter by tag"
+        onValueChange={onTagChange}
+        options={tagOptions}
+        placeholder="Any tag"
+        value={tag}
+      />
     </section>
   );
 }

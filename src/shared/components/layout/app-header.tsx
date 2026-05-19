@@ -5,12 +5,14 @@ import { cn } from "@/shared/utils/cn";
 
 type AppHeaderProps = ComponentPropsWithoutRef<"header"> & {
   actions?: ReactNode;
+  center?: ReactNode;
   innerClassName?: string;
   leading?: ReactNode;
 };
 
 export function AppHeader({
   actions,
+  center,
   className,
   innerClassName,
   leading,
@@ -19,20 +21,29 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl",
+        "border-border/60 bg-background/70 sticky top-0 z-40 border-b backdrop-blur-xl",
         className,
       )}
       {...props}
     >
       <div
         className={cn(
-          "mx-auto flex min-h-16 max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6",
+          "mx-auto grid min-h-16 max-w-6xl grid-cols-[1fr_auto] items-center gap-3 px-4 py-3 sm:px-6 md:grid-cols-[1fr_auto_1fr]",
           innerClassName,
         )}
       >
-        {leading ?? <AppLogo href="/" />}
+        <div className="min-w-0 justify-self-start">
+          {leading ?? <AppLogo href="/" />}
+        </div>
+        {center ? (
+          <nav className="hidden items-center justify-center gap-1 md:flex">
+            {center}
+          </nav>
+        ) : (
+          <span className="hidden md:block" />
+        )}
         {actions ? (
-          <nav className="flex flex-wrap items-center justify-end gap-2">
+          <nav className="flex items-center justify-end gap-2 justify-self-end">
             {actions}
           </nav>
         ) : null}

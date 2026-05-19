@@ -4,7 +4,8 @@ import { Loader2 } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 import { RatingInput } from "@/features/concerts/components/rating-input";
-import { TagsInput } from "@/features/concerts/components/tags-input";
+import { SetlistBuilder } from "@/features/concerts/components/setlist-builder";
+import { TagPicker } from "@/features/concerts/components/tag-picker";
 import { WishlistToggle } from "@/features/concerts/components/wishlist-toggle";
 import type { Concert, ConcertFormInput } from "@/features/concerts/types";
 import { Button } from "@/shared/components/ui/button";
@@ -14,6 +15,7 @@ import { Modal } from "@/shared/components/ui/modal";
 import { Textarea } from "@/shared/components/ui/textarea";
 
 type ConcertFormProps = {
+  availableTags?: string[];
   editing: Concert | null;
   onClose: () => void;
   onSubmit: (input: ConcertFormInput) => void;
@@ -22,6 +24,7 @@ type ConcertFormProps = {
 };
 
 export function ConcertForm({
+  availableTags = [],
   editing,
   onClose,
   onSubmit,
@@ -35,7 +38,7 @@ export function ConcertForm({
   const [rating, setRating] = useState(editing?.rating ?? 0);
   const [notes, setNotes] = useState(editing?.notes ?? "");
   const [setlist, setSetlist] = useState(editing?.setlist ?? "");
-  const [tagsText, setTagsText] = useState(editing?.tags.join(", ") ?? "");
+  const [tags, setTags] = useState(editing?.tags ?? []);
   const [isWishlist, setIsWishlist] = useState(editing?.isWishlist ?? false);
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -50,8 +53,8 @@ export function ConcertForm({
       concertDate: readField("concertDate") || null,
       rating: rating || null,
       notes: readField("notes"),
-      setlist: readField("setlist"),
-      tags: readField("tags"),
+      setlist,
+      tags,
       isWishlist,
     });
   };
@@ -137,10 +140,11 @@ export function ConcertForm({
           />
         </div>
 
-        <TagsInput
+        <TagPicker
+          availableTags={availableTags}
           disabled={pending}
-          onChange={setTagsText}
-          value={tagsText}
+          onChange={setTags}
+          value={tags}
         />
 
         <RatingInput disabled={pending} onChange={setRating} value={rating} />
@@ -159,23 +163,19 @@ export function ConcertForm({
           />
         </div>
 
-        <div className="grid gap-1.5">
-          <Label htmlFor="setlist">Setlist</Label>
-          <Textarea
-            className="font-mono text-xs"
-            disabled={pending}
-            id="setlist"
-            maxLength={5000}
-            name="setlist"
-            onChange={(event) => setSetlist(event.target.value)}
-            placeholder={"Opening track\nSecond song\nEncore..."}
-            rows={5}
-            value={setlist}
-          />
-        </div>
+        <SetlistBuilder
+          disabled={pending}
+          onChange={setSetlist}
+          value={setlist}
+        />
 
         <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
-          <Button disabled={pending} onClick={onClose} type="button" variant="ghost">
+          <Button
+            disabled={pending}
+            onClick={onClose}
+            type="button"
+            variant="ghost"
+          >
             Cancel
           </Button>
           <Button disabled={pending} type="submit">

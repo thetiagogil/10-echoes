@@ -17,7 +17,7 @@ export function RatingInput({ disabled, onChange, value }: RatingInputProps) {
         {[1, 2, 3, 4, 5].map((rating) => (
           <button
             aria-label={`Set rating to ${rating}`}
-            className="rounded p-1 transition hover:bg-secondary/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            className="hover:bg-secondary/10 focus-visible:ring-ring rounded p-1 transition focus-visible:ring-1 focus-visible:outline-none"
             disabled={disabled}
             key={rating}
             onClick={() => onChange(rating === value ? 0 : rating)}

@@ -6,7 +6,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: APP_NAME,
-  description: "A private live music journal for concerts, setlists, and show memories.",
+  description:
+    "A private live music journal for concerts, setlists, and show memories.",
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },

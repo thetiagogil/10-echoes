@@ -51,8 +51,12 @@ export function getAvailableTags(concerts: Concert[]) {
 export function getConcertStats(concerts: Concert[]): ConcertStats {
   const wishlist = concerts.filter(isWishlistConcert);
   const scheduled = concerts.filter((concert) => !isWishlistConcert(concert));
-  const attended = scheduled.filter((concert) => isPastConcert(concert.concertDate));
-  const upcoming = scheduled.filter((concert) => !isPastConcert(concert.concertDate));
+  const attended = scheduled.filter((concert) =>
+    isPastConcert(concert.concertDate),
+  );
+  const upcoming = scheduled.filter(
+    (concert) => !isPastConcert(concert.concertDate),
+  );
   const ratings = attended
     .map((concert) => concert.rating)
     .filter((rating): rating is number => typeof rating === "number");

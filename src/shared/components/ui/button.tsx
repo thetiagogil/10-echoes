@@ -4,6 +4,7 @@ import { cn } from "@/shared/utils/cn";
 
 export type ButtonVariant =
   | "primary"
+  | "gradient"
   | "secondary"
   | "outline"
   | "ghost"
@@ -18,6 +19,8 @@ type ButtonStyleProps = {
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonStyleProps;
 
 const variants: Record<ButtonVariant, string> = {
+  gradient:
+    "border-transparent bg-gradient-stage text-primary-foreground shadow-stage hover:saturate-125",
   primary:
     "border-primary bg-primary text-primary-foreground shadow-stage hover:border-secondary hover:bg-secondary hover:text-secondary-foreground",
   secondary:
@@ -50,22 +53,18 @@ export function buttonVariants({
   );
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
-    className,
-    variant = "primary",
-    size = "md",
-    type = "button",
-    ...props
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(
+    { className, variant = "primary", size = "md", type = "button", ...props },
+    ref,
+  ) {
+    return (
+      <button
+        className={buttonVariants({ className, size, variant })}
+        ref={ref}
+        type={type}
+        {...props}
+      />
+    );
   },
-  ref,
-) {
-  return (
-    <button
-      className={buttonVariants({ className, size, variant })}
-      ref={ref}
-      type={type}
-      {...props}
-    />
-  );
-});
+);

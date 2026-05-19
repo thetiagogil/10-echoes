@@ -3,6 +3,7 @@ import type {
   ConcertFilter,
   ConcertFormInput,
 } from "@/features/concerts/types";
+import { normalizeTagValue } from "@/features/concerts/lib/tags";
 
 const datePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
 const minimumDate = "1900-01-01";
@@ -40,12 +41,18 @@ export function normalizeConcertInput(
   const isWishlist = input.isWishlist === true;
 
   if (artist.length < 1) return { ok: false, error: "Artist is required." };
-  if (artist.length > 160) return { ok: false, error: "Artist must be 160 characters or less." };
+  if (artist.length > 160)
+    return { ok: false, error: "Artist must be 160 characters or less." };
   if (venue.length < 1) return { ok: false, error: "Venue is required." };
-  if (venue.length > 160) return { ok: false, error: "Venue must be 160 characters or less." };
-  if (city && city.length > 120) return { ok: false, error: "City must be 120 characters or less." };
+  if (venue.length > 160)
+    return { ok: false, error: "Venue must be 160 characters or less." };
+  if (city && city.length > 120)
+    return { ok: false, error: "City must be 120 characters or less." };
   if (!isWishlist && !concertDate) {
-    return { ok: false, error: "Concert date is required unless this is a wishlist entry." };
+    return {
+      ok: false,
+      error: "Concert date is required unless this is a wishlist entry.",
+    };
   }
   if (concertDate && !isValidDateOnly(concertDate)) {
     return { ok: false, error: "Concert date must use YYYY-MM-DD." };
@@ -53,7 +60,10 @@ export function normalizeConcertInput(
   if (concertDate && (concertDate < minimumDate || concertDate > maximumDate)) {
     return { ok: false, error: "Concert date must be between 1900 and 2100." };
   }
-  if (rating !== null && (!Number.isFinite(rating) || rating < 1 || rating > 5)) {
+  if (
+    rating !== null &&
+    (!Number.isFinite(rating) || rating < 1 || rating > 5)
+  ) {
     return { ok: false, error: "Rating must be between 1 and 5." };
   }
   if (!tags.ok) {
@@ -86,14 +96,22 @@ export function isWishlistConcert(concert: Concert) {
   return concert.isWishlist || !concert.concertDate;
 }
 
-export function isPastConcert(concertDate: string | null, today = getTodayDateOnly()) {
+export function isPastConcert(
+  concertDate: string | null,
+  today = getTodayDateOnly(),
+) {
   if (!concertDate) return false;
 
   return concertDate < today;
 }
 
-export function isUpcomingConcert(concert: Concert, today = getTodayDateOnly()) {
-  return !isWishlistConcert(concert) && !isPastConcert(concert.concertDate, today);
+export function isUpcomingConcert(
+  concert: Concert,
+  today = getTodayDateOnly(),
+) {
+  return (
+    !isWishlistConcert(concert) && !isPastConcert(concert.concertDate, today)
+  );
 }
 
 export function filterConcerts(
@@ -103,7 +121,10 @@ export function filterConcerts(
   const sorted = [...concerts].sort(compareConcerts);
 
   if (filter === "past") {
-    return sorted.filter((concert) => !isWishlistConcert(concert) && isPastConcert(concert.concertDate));
+    return sorted.filter(
+      (concert) =>
+        !isWishlistConcert(concert) && isPastConcert(concert.concertDate),
+    );
   }
   if (filter === "upcoming") {
     return sorted
@@ -181,9 +202,9 @@ function normalizeRating(value: number | null | undefined) {
   return value;
 }
 
-function normalizeTags(value: string[] | string | null | undefined):
-  | { ok: true; data: string[] }
-  | { ok: false; error: string } {
+function normalizeTags(
+  value: string[] | string | null | undefined,
+): { ok: true; data: string[] } | { ok: false; error: string } {
   const rawTags = Array.isArray(value)
     ? value
     : typeof value === "string"
@@ -193,11 +214,14 @@ function normalizeTags(value: string[] | string | null | undefined):
   const tags: string[] = [];
 
   for (const rawTag of rawTags) {
-    const tag = rawTag.trim().toLowerCase();
+    const tag = normalizeTagValue(rawTag);
     if (!tag) continue;
 
     if (tag.length > maximumTagLength) {
-      return { ok: false, error: `Tags must be ${maximumTagLength} characters or less.` };
+      return {
+        ok: false,
+        error: `Tags must be ${maximumTagLength} characters or less.`,
+      };
     }
 
     if (!seen.has(tag)) {

@@ -30,9 +30,9 @@ export function buildDeleteConcertArgs(concertId: number) {
   };
 }
 
-export function validateConcertId(value: number):
-  | { ok: true; id: number }
-  | { ok: false; error: string } {
+export function validateConcertId(
+  value: number,
+): { ok: true; id: number } | { ok: false; error: string } {
   if (!Number.isSafeInteger(value) || value < 1) {
     return { ok: false, error: "Invalid concert id." };
   }

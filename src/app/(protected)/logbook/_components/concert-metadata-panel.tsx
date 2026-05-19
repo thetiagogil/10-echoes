@@ -17,11 +17,11 @@ export function ConcertMetadataPanel({
 }: ConcertMetadataPanelProps) {
   return (
     <section className="lg:col-span-2">
-      <h2 className="flex items-center gap-2 font-mono text-xs uppercase text-secondary">
+      <h2 className="text-secondary flex items-center gap-2 font-mono text-xs uppercase">
         <Tag className="h-3.5 w-3.5" />
         Entry metadata
       </h2>
-      <dl className="mt-3 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3">
+      <dl className="border-border bg-border mt-3 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-3">
         <DetailStat label="Status" value={status} />
         <DetailStat
           label="Date"
@@ -48,7 +48,7 @@ type DetailStatProps = {
 function DetailStat({ label, value }: DetailStatProps) {
   return (
     <div className="bg-card p-4">
-      <dt className="mb-1 font-mono text-[10px] uppercase text-muted-foreground">
+      <dt className="text-muted-foreground mb-1 font-mono text-[10px] uppercase">
         {label}
       </dt>
       <dd className="truncate text-sm font-semibold">{value}</dd>

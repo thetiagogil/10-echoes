@@ -25,7 +25,6 @@ export default async function StatsPage() {
     <AppMain className="pb-12">
       <PageIntro
         description="Most-seen artists, favorite venues, and the private numbers behind your live music archive."
-        eyebrow="By the numbers"
         title={
           <>
             Your <span className="text-gradient-stage">stats</span>.

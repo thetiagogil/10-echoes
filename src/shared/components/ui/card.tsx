@@ -45,17 +45,13 @@ export function Card({
   tone = "default",
   ...props
 }: CardProps) {
-  const borderClass = rarity
-    ? RARITY_BORDER_CLASS[rarity]
-    : borders[tone];
-  const cornerClass = rarity
-    ? RARITY_TEXT_CLASS[rarity]
-    : cornerTones[tone];
+  const borderClass = rarity ? RARITY_BORDER_CLASS[rarity] : borders[tone];
+  const cornerClass = rarity ? RARITY_TEXT_CLASS[rarity] : cornerTones[tone];
 
   return (
     <Component
       className={cn(
-        "relative rounded-lg border bg-card p-5 text-foreground shadow-card transition-all",
+        "bg-card text-foreground shadow-card relative rounded-lg border p-5 transition-all",
         gradient && "overflow-hidden",
         interactive && "hover:-translate-y-1",
         borderClass,
@@ -64,19 +60,19 @@ export function Card({
       {...props}
     >
       {gradient ? (
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-accent/10" />
+        <div className="from-primary/10 to-accent/10 pointer-events-none absolute inset-0 bg-linear-to-br via-transparent" />
       ) : null}
       {corners ? (
         <>
           <span
             className={cn(
-              "absolute left-1.5 top-1.5 h-2 w-2 border-l-2 border-t-2 border-current opacity-60",
+              "absolute top-1.5 left-1.5 h-2 w-2 border-t-2 border-l-2 border-current opacity-60",
               cornerClass,
             )}
           />
           <span
             className={cn(
-              "absolute right-1.5 top-1.5 h-2 w-2 border-r-2 border-t-2 border-current opacity-60",
+              "absolute top-1.5 right-1.5 h-2 w-2 border-t-2 border-r-2 border-current opacity-60",
               cornerClass,
             )}
           />
@@ -88,7 +84,7 @@ export function Card({
           />
           <span
             className={cn(
-              "absolute bottom-1.5 right-1.5 h-2 w-2 border-b-2 border-r-2 border-current opacity-60",
+              "absolute right-1.5 bottom-1.5 h-2 w-2 border-r-2 border-b-2 border-current opacity-60",
               cornerClass,
             )}
           />

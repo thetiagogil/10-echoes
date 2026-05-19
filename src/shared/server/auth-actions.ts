@@ -21,6 +21,7 @@ export async function signOutAction(): Promise<ActionResult<void>> {
 
     revalidatePath("/");
     revalidatePath("/logbook");
+    revalidatePath("/settings");
     revalidatePath("/timeline");
     revalidatePath("/stats");
 
