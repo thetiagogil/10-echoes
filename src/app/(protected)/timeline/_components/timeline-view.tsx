@@ -12,8 +12,7 @@ type TimelineViewProps = {
 const timelineVariables =
   "[--timeline-axis-col:1rem] [--timeline-date-col:4.5rem] [--timeline-gap:0.75rem] sm:[--timeline-axis-col:1.25rem] sm:[--timeline-date-col:6.75rem] sm:[--timeline-gap:0.75rem]";
 const timelineRailStyle = {
-  left:
-    "calc(var(--timeline-date-col) + var(--timeline-gap) + (var(--timeline-axis-col) / 2))",
+  left: "calc(var(--timeline-date-col) + var(--timeline-gap) + (var(--timeline-axis-col) / 2))",
 } satisfies CSSProperties;
 
 export function TimelineView({ groups }: TimelineViewProps) {

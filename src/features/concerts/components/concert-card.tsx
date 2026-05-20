@@ -40,7 +40,7 @@ export function ConcertCard({
       <div className="bg-gradient-stage absolute -inset-px rounded-lg opacity-0 blur-xl transition-opacity group-hover:opacity-40" />
       <div
         className={cn(
-          "relative h-full min-h-107.5 transform-3d transition-transform duration-500",
+          "relative h-full min-h-107.5 transition-transform duration-500 transform-3d",
           flipped && "transform-[rotateY(180deg)]",
         )}
       >

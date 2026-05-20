@@ -34,13 +34,13 @@ export function ConcertCardFront({
   return (
     <div
       className={cn(
-        "grain border-border bg-card shadow-card absolute! inset-0 flex flex-col overflow-hidden rounded-lg border backface-hidden transition-colors",
-        disabled ? "cursor-default" : "cursor-pointer hover:border-primary/45",
+        "grain border-border bg-card shadow-card absolute! inset-0 flex flex-col overflow-hidden rounded-lg border transition-colors backface-hidden",
+        disabled ? "cursor-default" : "hover:border-primary/45 cursor-pointer",
       )}
     >
       <button
         aria-label={`Show ${concert.artist} setlist`}
-        className="absolute inset-0 z-0 appearance-none rounded-lg border-0 bg-transparent p-0 focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-inset focus-visible:outline-hidden disabled:cursor-default"
+        className="focus-visible:ring-primary/70 absolute inset-0 z-0 appearance-none rounded-lg border-0 bg-transparent p-0 focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset disabled:cursor-default"
         disabled={disabled}
         onClick={onFlip}
         type="button"

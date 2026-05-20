@@ -17,9 +17,7 @@ type ProtectedAppShellProps = {
   currentUser: CurrentUser;
 };
 
-export function ProtectedAppShell({
-  children,
-}: ProtectedAppShellProps) {
+export function ProtectedAppShell({ children }: ProtectedAppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [feedback, setFeedback] = useState<string | null>(null);

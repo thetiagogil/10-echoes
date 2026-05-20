@@ -48,7 +48,7 @@ export function TagPicker({
       <Label htmlFor="tags">Tags</Label>
       <div
         className={cn(
-          "border-border bg-card relative rounded-lg border px-3 py-2 shadow-sm transition-colors hover:border-primary/50",
+          "border-border bg-card hover:border-primary/50 relative rounded-lg border px-3 py-2 shadow-sm transition-colors",
           focused && "border-secondary ring-ring ring-1",
           disabled && "opacity-50",
         )}
