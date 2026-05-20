@@ -14,24 +14,36 @@ import { SetupMissing } from "@/shared/components/setup-missing";
 import { Button } from "@/shared/components/ui/button";
 import { ButtonLink } from "@/shared/components/ui/button-link";
 import { isSupabaseConfigured } from "@/lib/env";
+import { createClient } from "@/lib/supabase/server";
+import { getCurrentAuthUser } from "@/shared/server/auth";
 
-export default function Home() {
+export default async function Home() {
   if (!isSupabaseConfigured()) {
     return <SetupMissing />;
   }
+
+  const client = await createClient();
+  const currentUser = await getCurrentAuthUser(client);
+  const isLoggedIn = Boolean(currentUser);
 
   return (
     <AppShell>
       <AppHeader
         actions={
-          <>
-            <ButtonLink href="/auth" size="sm" variant="ghost">
-              Log in
+          isLoggedIn ? (
+            <ButtonLink href="/logbook" size="sm">
+              Open logbook
             </ButtonLink>
-            <ButtonLink href="/auth?mode=signup" size="sm">
-              Sign up
-            </ButtonLink>
-          </>
+          ) : (
+            <>
+              <ButtonLink href="/auth" size="sm" variant="ghost">
+                Log in
+              </ButtonLink>
+              <ButtonLink href="/auth?mode=signup" size="sm">
+                Sign up
+              </ButtonLink>
+            </>
+          )
         }
       />
 
@@ -65,8 +77,11 @@ export default function Home() {
               you only get when the lights go down in one private archive.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <ButtonLink href="/auth?mode=signup" size="lg">
-                Open your logbook
+              <ButtonLink
+                href={isLoggedIn ? "/logbook" : "/auth?next=/logbook"}
+                size="lg"
+              >
+                {isLoggedIn ? "Open your logbook" : "Log in to open logbook"}
                 <ArrowRight className="h-4 w-4" />
               </ButtonLink>
               <form action="/api/auth/demo" method="post">

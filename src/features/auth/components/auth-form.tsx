@@ -250,7 +250,7 @@ export function AuthForm({
                   {pending ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : null}
-                  {isSignup ? "Create Account" : "Open Logbook"}
+                  {isSignup ? "Create Account" : "Log in"}
                 </Button>
               </form>
 
