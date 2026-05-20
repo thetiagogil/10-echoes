@@ -15,7 +15,7 @@ export function AppLogo({ href }: AppLogoProps) {
         className="h-7 w-7 transition-transform duration-700 group-hover/logo:rotate-180"
         height={28}
         priority
-        src="/favicon.svg"
+        src="/echoes-mark.svg"
         width={28}
       />
       <span className={cn("font-display text-xl font-bold")}>
