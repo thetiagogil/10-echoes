@@ -125,7 +125,7 @@ export default async function Home() {
         </section>
 
         <footer className="border-border/60 text-muted-foreground border-t py-10 text-center font-mono text-xs">
-          Echoes - built for nights you do not want to forget
+          Echoes - track your live music history
         </footer>
       </main>
     </AppShell>
