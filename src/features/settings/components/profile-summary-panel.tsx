@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { AtSign, Mail, User } from "lucide-react";
 
 import { getProfileInitials } from "@/features/settings/lib/profile-formatting";
 
@@ -21,13 +21,20 @@ export function ProfileSummaryPanel({
       <div className="min-w-0">
         <p className="mb-1 flex items-center gap-2 font-semibold">
           <User className="text-primary h-4 w-4" />
-          Shared profile
+          {displayName}
         </p>
-        <p className="text-muted-foreground truncate text-sm">
+        <p className="text-muted-foreground flex items-center gap-2 truncate text-sm">
+          <Mail className="text-primary h-4 w-4" />
           {email ?? "No email available"}
         </p>
         <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-6">
-          {bio.trim() || "Add a short bio for your live music identity."}
+          {bio ? (
+            bio.trim()
+          ) : (
+            <span className="text-muted-foreground/40 italic">
+              Add a short bio for your live music identity.
+            </span>
+          )}
         </p>
       </div>
     </section>
