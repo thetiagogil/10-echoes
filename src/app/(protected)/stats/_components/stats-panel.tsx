@@ -18,7 +18,7 @@ const toneStyles: Record<StatsPanelTone, string> = {
 
 export function StatsPanel({ children, title, tone }: StatsPanelProps) {
   return (
-    <section className="border-border bg-card/80 shadow-card relative overflow-hidden rounded-lg border p-6">
+    <section className="border-border bg-card/80 shadow-card relative min-w-0 overflow-hidden rounded-lg border p-6">
       <div
         className={cn(
           "pointer-events-none absolute inset-x-0 top-0 h-1 bg-linear-to-r",

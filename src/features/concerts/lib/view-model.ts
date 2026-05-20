@@ -11,6 +11,8 @@ import type {
   TimelineYearGroup,
 } from "@/features/concerts/types";
 
+const statsEntryLimit = 5;
+
 export function getFilteredConcerts(
   concerts: Concert[],
   filters: ConcertFilterState,
@@ -99,7 +101,7 @@ export function getTimelineGroups(concerts: Concert[]): TimelineYearGroup[] {
 function getTopCounts(
   concerts: Concert[],
   getKey: (concert: Concert) => string | null,
-  limit = 5,
+  limit = statsEntryLimit,
 ) {
   const counts = new Map<string, number>();
 
@@ -116,7 +118,7 @@ function getTopCounts(
     .slice(0, limit);
 }
 
-function getTopTagCounts(concerts: Concert[], limit = 6) {
+function getTopTagCounts(concerts: Concert[], limit = statsEntryLimit) {
   const counts = new Map<string, number>();
 
   for (const concert of concerts) {

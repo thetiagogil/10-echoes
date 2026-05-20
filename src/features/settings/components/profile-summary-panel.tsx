@@ -1,4 +1,4 @@
-import { AtSign, Mail, User } from "lucide-react";
+import { Mail, User } from "lucide-react";
 
 import { getProfileInitials } from "@/features/settings/lib/profile-formatting";
 

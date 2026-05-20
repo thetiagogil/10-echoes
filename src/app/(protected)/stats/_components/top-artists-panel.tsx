@@ -1,6 +1,7 @@
 import type { ConcertStats } from "@/features/concerts/types";
 import { EmptyStatsText } from "./empty-stats-text";
 import { StatsPanel } from "./stats-panel";
+import { StatsRankingRow } from "./stats-ranking-row";
 
 type TopArtistsPanelProps = {
   stats: ConcertStats;
@@ -18,14 +19,15 @@ export function TopArtistsPanel({ stats }: TopArtistsPanelProps) {
         <ul className="space-y-4">
           {stats.topArtists.map((artist) => (
             <li key={artist.name}>
-              <div className="mb-1 flex items-baseline justify-between gap-3">
-                <span className="font-display truncate text-xl font-semibold">
-                  {artist.name}
-                </span>
-                <span className="text-muted-foreground font-mono text-xs">
-                  x{artist.count}
-                </span>
-              </div>
+              <StatsRankingRow
+                className="mb-1"
+                count={artist.count}
+                label={
+                  <span className="font-display block truncate text-xl font-semibold">
+                    {artist.name}
+                  </span>
+                }
+              />
               <div className="bg-muted h-2 overflow-hidden rounded-full">
                 <div
                   className="bg-gradient-stage h-full rounded-full"
