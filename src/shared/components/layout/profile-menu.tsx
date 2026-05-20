@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  ChevronDown,
-  Loader2,
-  LogOut,
-  Menu,
-  Settings,
-  UserRound,
-} from "lucide-react";
+import { Loader2, LogOut, Settings, UserRound } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { protectedNavLinks } from "@/shared/constants/navigation";
 import { Button } from "@/shared/components/ui/button";
@@ -16,57 +10,40 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
-import type { CurrentUser } from "@/shared/types";
+import { cn } from "@/shared/utils/cn";
 
 type ProfileMenuProps = {
-  currentUser: CurrentUser;
   isPending: boolean;
   onSignOut: () => void;
   pathname: string;
 };
 
 export function ProfileMenu({
-  currentUser,
   isPending,
   onSignOut,
   pathname,
 }: ProfileMenuProps) {
-  const profileName =
-    currentUser.profile.displayName ?? currentUser.email ?? "Echoes user";
+  const [open, setOpen] = useState(false);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu onOpenChange={setOpen} open={open}>
       <DropdownMenuTrigger asChild>
         <Button
-          aria-label="Open account menu"
-          className="max-w-52 justify-between px-3"
+          aria-label={open ? "Close account menu" : "Open account menu"}
+          className={cn(
+            "text-primary hover:border-primary/50 h-10 w-10 rounded-full",
+            open && "border-primary/50",
+          )}
           disabled={isPending}
           variant="outline"
         >
-          <span className="hidden min-w-0 items-center gap-2 md:flex">
-            <UserRound className="h-4 w-4" />
-            <span className="truncate">{profileName}</span>
-            <ChevronDown className="text-muted-foreground h-4 w-4" />
-          </span>
-          <Menu className="h-4 w-4 md:hidden" />
+          <UserRound className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-64" align="end">
-        <DropdownMenuLabel>
-          <span className="text-foreground block tracking-normal normal-case">
-            {profileName}
-          </span>
-          {currentUser.email ? (
-            <span className="text-muted-foreground mt-1 block truncate tracking-normal normal-case">
-              {currentUser.email}
-            </span>
-          ) : null}
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="w-44" align="end">
         <div className="md:hidden">
           {protectedNavLinks.map((link) => {
             const active =
@@ -91,6 +68,7 @@ export function ProfileMenu({
             Settings
           </Link>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           disabled={isPending}
           onSelect={(event) => {

@@ -19,7 +19,6 @@ type ProtectedAppShellProps = {
 
 export function ProtectedAppShell({
   children,
-  currentUser,
 }: ProtectedAppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -48,7 +47,6 @@ export function ProtectedAppShell({
         center={<ProtectedNavLinks pathname={pathname} />}
         actions={
           <ProfileMenu
-            currentUser={currentUser}
             isPending={isPending}
             onSignOut={signOut}
             pathname={pathname}
