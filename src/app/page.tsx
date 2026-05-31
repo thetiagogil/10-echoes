@@ -90,7 +90,7 @@ export default async function Home() {
                   variant="outline"
                 >
                   <Music2 className="h-4 w-4" />
-                  Continue with test user
+                  Continue with demo account
                 </Button>
               </form>
             </div>
