@@ -78,7 +78,7 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
 
         <div className="grid gap-1.5">
           <Label htmlFor="displayName" required>
-            Display name
+            Name
           </Label>
           <Input
             autoComplete="name"

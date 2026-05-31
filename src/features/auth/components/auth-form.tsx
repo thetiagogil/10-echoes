@@ -1,10 +1,11 @@
 "use client";
 
-import { ArrowLeft, Loader2, LockKeyhole, Music2 } from "lucide-react";
+import { ArrowLeft, Loader2, Music2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 
 import { AuthFeedback } from "@/features/auth/components/auth-feedback";
+import { createClient } from "@/lib/supabase/browser";
 import { AppHeader } from "@/shared/components/layout/app-header";
 import { AppMain } from "@/shared/components/layout/app-main";
 import { AppShell } from "@/shared/components/layout/app-shell";
@@ -13,7 +14,6 @@ import { ButtonLink } from "@/shared/components/ui/button-link";
 import { Card } from "@/shared/components/ui/card";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
-import { createClient } from "@/lib/supabase/browser";
 
 type AuthMode = "signin" | "signup";
 
@@ -141,10 +141,6 @@ export function AuthForm({
         <div className="w-full max-w-md">
           <Card className="p-8" gradient tone="primary">
             <div className="relative">
-              <div className="text-secondary mb-2 flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase">
-                <LockKeyhole className="h-3.5 w-3.5" />
-                {isSignup ? "new listener" : "returning listener"}
-              </div>
               <h1 className="font-display text-glow-primary mb-6 text-2xl">
                 {isSignup ? "CREATE ACCOUNT" : "SIGN IN"}
               </h1>
@@ -162,7 +158,7 @@ export function AuthForm({
                       htmlFor="displayName"
                       required
                     >
-                      Display name
+                      Name
                     </Label>
                     <Input
                       autoComplete="name"
@@ -270,7 +266,7 @@ export function AuthForm({
                   variant="outline"
                 >
                   <Music2 className="h-4 w-4" />
-                  Use demo account
+                  Continue with test user
                 </Button>
               </form>
 

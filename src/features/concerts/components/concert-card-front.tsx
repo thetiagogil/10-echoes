@@ -57,7 +57,7 @@ export function ConcertCardFront({
           </h3>
         </div>
         <Badge variant={wishlist ? "surface" : past ? "accent" : "primary"}>
-          {wishlist ? "Wish" : past ? "Stub" : "Plan"}
+          {wishlist ? "Wish" : past ? "Done" : "Plan"}
         </Badge>
       </header>
 

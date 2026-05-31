@@ -8,13 +8,13 @@ import {
 import Image from "next/image";
 import type { ComponentType } from "react";
 
+import { isSupabaseConfigured } from "@/lib/env";
+import { createClient } from "@/lib/supabase/server";
 import { AppHeader } from "@/shared/components/layout/app-header";
 import { AppShell } from "@/shared/components/layout/app-shell";
 import { SetupMissing } from "@/shared/components/setup-missing";
 import { Button } from "@/shared/components/ui/button";
 import { ButtonLink } from "@/shared/components/ui/button-link";
-import { isSupabaseConfigured } from "@/lib/env";
-import { createClient } from "@/lib/supabase/server";
 import { getCurrentAuthUser } from "@/shared/server/auth";
 
 export default async function Home() {
@@ -62,9 +62,6 @@ export default async function Home() {
           </div>
 
           <div className="relative mx-auto max-w-6xl px-6 pt-24 pb-32 md:pt-32 md:pb-44">
-            <p className="text-secondary mb-6 font-mono text-xs tracking-[0.3em] uppercase">
-              Echoes - a journal for live music
-            </p>
             <h1 className="max-w-4xl text-5xl leading-[0.95] font-black tracking-tight md:text-7xl lg:text-8xl">
               Every show you&apos;ve <br />
               <em className="text-gradient-stage not-italic">ever</em> been to.{" "}
@@ -93,7 +90,7 @@ export default async function Home() {
                   variant="outline"
                 >
                   <Music2 className="h-4 w-4" />
-                  Use demo account
+                  Continue with test user
                 </Button>
               </form>
             </div>
