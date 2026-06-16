@@ -43,7 +43,7 @@ export function ConcertCardBack({
 
       <div className="pointer-events-none relative z-10 flex flex-1 flex-col p-5 pt-6">
         {songs.length > 0 ? (
-          <ol className="text-foreground/85 max-h-62.5 space-y-2 overflow-y-auto pr-1 font-mono text-xs">
+          <ol className="scrollbar-themed text-foreground/85 max-h-62.5 space-y-2 overflow-y-auto pr-1 font-mono text-xs">
             {songs.map((song, index) => (
               <li
                 className="border-border/50 bg-background/35 grid grid-cols-[2rem_minmax(0,1fr)] gap-3 rounded-md border px-3 py-2"

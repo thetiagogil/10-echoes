@@ -11,13 +11,14 @@ type TimelineEntryCardProps = {
 export function TimelineEntryCard({ concert, past }: TimelineEntryCardProps) {
   return (
     <Link
+      aria-label={`View ${concert.artist} in the logbook`}
       className="border-border bg-card/80 shadow-card hover:border-primary/50 focus-visible:ring-ring block rounded-lg border p-4 transition focus-visible:ring-1 focus-visible:outline-none sm:p-5"
       href={`/logbook/${concert.id}`}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <p className="text-muted-foreground mb-1 font-mono text-[10px] tracking-[0.18em] uppercase">
-            {past ? "attended" : "upcoming"}
+            {past ? "Attended" : "Upcoming"}
           </p>
           <h3 className="font-display text-xl leading-tight font-bold wrap-break-word sm:text-2xl">
             {concert.artist}

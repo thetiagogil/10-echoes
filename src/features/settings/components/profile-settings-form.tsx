@@ -19,6 +19,10 @@ type ProfileSettingsFormProps = {
 export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
   const initialDisplayName = currentUser.profile.displayName;
   const initialBio = currentUser.profile.bio ?? "";
+  const [savedProfile, setSavedProfile] = useState({
+    bio: initialBio,
+    displayName: initialDisplayName,
+  });
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [bio, setBio] = useState(initialBio);
   const [feedback, setFeedback] = useState<{
@@ -26,6 +30,9 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
     tone: "error" | "success";
   } | null>(null);
   const [isPending, startTransition] = useTransition();
+  const hasChanges =
+    displayName !== savedProfile.displayName || bio !== savedProfile.bio;
+  const canSave = hasChanges && displayName.trim().length > 0;
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,13 +51,17 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
 
       setDisplayName(result.data.displayName);
       setBio(result.data.bio ?? "");
+      setSavedProfile({
+        bio: result.data.bio ?? "",
+        displayName: result.data.displayName,
+      });
       setFeedback({ message: "Profile settings saved.", tone: "success" });
     });
   };
 
   const reset = () => {
-    setDisplayName(initialDisplayName);
-    setBio(initialBio);
+    setDisplayName(savedProfile.displayName);
+    setBio(savedProfile.bio);
     setFeedback(null);
   };
 
@@ -112,14 +123,14 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
 
       <div className="border-border flex items-center justify-end gap-3 border-t pt-4">
         <Button
-          disabled={isPending}
+          disabled={isPending || !hasChanges}
           onClick={reset}
           type="button"
           variant="ghost"
         >
           Reset
         </Button>
-        <Button disabled={isPending} type="submit">
+        <Button disabled={isPending || !canSave} type="submit">
           {isPending ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (

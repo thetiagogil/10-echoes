@@ -73,26 +73,31 @@ export default async function Home() {
               Keep artists, venues, setlists, ratings, and the kind of memories
               you only get when the lights go down in one private archive.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <ButtonLink
+                className="w-full sm:w-auto"
                 href={isLoggedIn ? "/logbook" : "/auth?next=/logbook"}
                 size="lg"
               >
-                {isLoggedIn ? "Open your logbook" : "Log in to open logbook"}
+                {isLoggedIn
+                  ? "Open your logbook"
+                  : "Log in to open your logbook"}
                 <ArrowRight className="h-4 w-4" />
               </ButtonLink>
-              <form action="/api/auth/demo" method="post">
-                <input name="next" type="hidden" value="/logbook" />
-                <Button
-                  className="w-full sm:w-auto"
-                  size="lg"
-                  type="submit"
-                  variant="outline"
-                >
-                  <Music2 className="h-4 w-4" />
-                  Continue with demo account
-                </Button>
-              </form>
+              {!isLoggedIn ? (
+                <form action="/api/auth/demo" method="post">
+                  <input name="next" type="hidden" value="/logbook" />
+                  <Button
+                    className="w-full sm:w-auto"
+                    size="lg"
+                    type="submit"
+                    variant="outline"
+                  >
+                    <Music2 className="h-4 w-4" />
+                    Continue with demo account
+                  </Button>
+                </form>
+              ) : null}
             </div>
           </div>
         </section>
@@ -138,9 +143,13 @@ type FeatureProps = {
 function Feature({ body, icon: Icon, title }: FeatureProps) {
   return (
     <article className="bg-card p-6 md:p-8">
-      <Icon className="text-secondary mb-5 h-7 w-7" />
-      <h2 className="font-display text-3xl font-bold">{title}</h2>
-      <p className="text-muted-foreground mt-3 text-sm leading-6">{body}</p>
+      <div className="mb-4 flex items-center gap-3">
+        <Icon className="text-secondary h-7 w-7 shrink-0" />
+        <h2 className="font-display text-3xl leading-none font-bold">
+          {title}
+        </h2>
+      </div>
+      <p className="text-muted-foreground text-sm leading-6">{body}</p>
     </article>
   );
 }

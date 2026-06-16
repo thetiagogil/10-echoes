@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 import type { ConcertFilter } from "@/features/concerts/types";
 import { Input } from "@/shared/components/ui/input";
@@ -67,12 +67,23 @@ export function LogbookControls({
         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           aria-label="Search logbook"
-          className="pl-9"
+          className={cn("pl-9", query && "pr-9")}
           disabled={!hasConcerts}
           onChange={(event) => onQueryChange(event.target.value)}
           placeholder="Search artist, venue, notes, tags..."
           value={query}
         />
+        {query ? (
+          <button
+            aria-label="Clear search"
+            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring absolute top-1/2 right-2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+            disabled={!hasConcerts}
+            onClick={() => onQueryChange("")}
+            type="button"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        ) : null}
       </div>
       <Select
         aria-label="Filter by year"

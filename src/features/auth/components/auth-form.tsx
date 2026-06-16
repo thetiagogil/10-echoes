@@ -144,6 +144,11 @@ export function AuthForm({
               <h1 className="font-display text-glow-primary mb-6 text-2xl">
                 {isSignup ? "CREATE ACCOUNT" : "SIGN IN"}
               </h1>
+              <p className="text-muted-foreground -mt-4 mb-6 text-sm leading-6">
+                {isSignup
+                  ? "Create your private live music archive."
+                  : "Log in to continue your concert journal."}
+              </p>
 
               {error ? <AuthFeedback tone="error">{error}</AuthFeedback> : null}
               {message ? (
@@ -162,6 +167,7 @@ export function AuthForm({
                     </Label>
                     <Input
                       autoComplete="name"
+                      autoFocus={isSignup}
                       disabled={pending}
                       id="displayName"
                       maxLength={80}
@@ -184,6 +190,7 @@ export function AuthForm({
                   </Label>
                   <Input
                     autoComplete="email"
+                    autoFocus={!isSignup}
                     disabled={pending}
                     id="email"
                     onChange={(event) => setEmail(event.target.value)}
@@ -242,11 +249,16 @@ export function AuthForm({
                   </div>
                 ) : null}
 
-                <Button className="w-full" disabled={pending} type="submit">
+                <Button
+                  className="w-full"
+                  disabled={pending}
+                  size="lg"
+                  type="submit"
+                >
                   {pending ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : null}
-                  {isSignup ? "Create Account" : "Log in"}
+                  {isSignup ? "Create account" : "Log in"}
                 </Button>
               </form>
 

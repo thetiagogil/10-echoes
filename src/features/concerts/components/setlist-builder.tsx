@@ -55,7 +55,7 @@ export function SetlistBuilder({
         </Button>
       </div>
 
-      <div className="border-border bg-background/35 space-y-2 rounded-lg border p-3">
+      <div className="scrollbar-themed border-border bg-background/35 max-h-80 space-y-2 overflow-y-auto overscroll-contain rounded-lg border p-3">
         {songs.length > 0 ? (
           songs.map((song, index) => (
             <div className="flex items-center gap-2" key={index}>

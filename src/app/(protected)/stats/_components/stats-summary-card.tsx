@@ -18,7 +18,7 @@ export function StatsSummaryCard({
   value,
 }: StatsSummaryCardProps) {
   return (
-    <div className="bg-card p-5 sm:p-6">
+    <div className="bg-card min-w-0 p-5 sm:p-6">
       <p className="text-muted-foreground mb-2 font-mono text-[10px] uppercase">
         {label}
       </p>

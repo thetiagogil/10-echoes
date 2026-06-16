@@ -39,7 +39,9 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
   const {
     activeFilter,
     availableTags,
+    hasActiveFilters,
     query,
+    resetFilters,
     setActiveFilter,
     setQuery,
     setTag,
@@ -100,7 +102,12 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
             ))}
           </section>
         ) : (
-          <LogbookEmptyState filter={activeFilter} onCreate={openCreateForm} />
+          <LogbookEmptyState
+            filter={activeFilter}
+            hasActiveFilters={hasActiveFilters}
+            onCreate={openCreateForm}
+            onResetFilters={resetFilters}
+          />
         )}
       </AppMain>
 

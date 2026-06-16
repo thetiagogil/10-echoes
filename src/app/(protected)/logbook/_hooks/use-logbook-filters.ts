@@ -15,6 +15,18 @@ export function useLogbookFilters(concerts: Concert[]) {
   const [query, setQuery] = useState("");
   const [year, setYear] = useState("");
   const [tag, setTag] = useState("");
+  const hasActiveFilters =
+    activeFilter !== "all" ||
+    query.trim().length > 0 ||
+    year.length > 0 ||
+    tag.length > 0;
+
+  const resetFilters = () => {
+    setActiveFilter("all");
+    setQuery("");
+    setYear("");
+    setTag("");
+  };
 
   const visibleConcerts = useMemo(
     () =>
@@ -47,7 +59,9 @@ export function useLogbookFilters(concerts: Concert[]) {
   return {
     activeFilter,
     availableTags,
+    hasActiveFilters,
     query,
+    resetFilters,
     setActiveFilter,
     setQuery,
     setTag,

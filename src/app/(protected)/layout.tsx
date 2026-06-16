@@ -8,13 +8,9 @@ export default async function ProtectedLayout({
   children: React.ReactNode;
 }>) {
   if (isSupabaseConfigured()) {
-    const currentUser = await requireUser();
+    await requireUser();
 
-    return (
-      <ProtectedAppShell currentUser={currentUser}>
-        {children}
-      </ProtectedAppShell>
-    );
+    return <ProtectedAppShell>{children}</ProtectedAppShell>;
   }
 
   return children;
