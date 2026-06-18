@@ -11,11 +11,11 @@ export type NormalizedProfileSettingsInput = {
 const displayNameMaxLength = 80;
 const bioMaxLength = 500;
 
-export function normalizeProfileSettingsInput(
+export const normalizeProfileSettingsInput = (
   input: ProfileSettingsInput,
 ):
   | { ok: true; data: NormalizedProfileSettingsInput }
-  | { ok: false; error: string } {
+  | { ok: false; error: string } => {
   const displayName = input.displayName.trim();
   const bio = input.bio?.trim() || null;
 
@@ -38,4 +38,4 @@ export function normalizeProfileSettingsInput(
   }
 
   return { ok: true, data: { bio, displayName } };
-}
+};

@@ -18,12 +18,12 @@ type TagPickerProps = {
   value: string[];
 };
 
-export function TagPicker({
+export const TagPicker = ({
   availableTags = [],
   disabled,
   onChange,
   value,
-}: TagPickerProps) {
+}: TagPickerProps) => {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const options = useMemo(
@@ -132,4 +132,4 @@ export function TagPicker({
       </div>
     </div>
   );
-}
+};

@@ -1,6 +1,6 @@
 import { AuthRequiredError } from "@/shared/server/auth";
 
-export function formatConcertMutationError(message?: string | null) {
+export const formatConcertMutationError = (message?: string | null) => {
   if (!message) return "Concert could not be saved.";
   if (message.includes("concerts_artist_length_check"))
     return "Artist must be 160 characters or less.";
@@ -18,12 +18,12 @@ export function formatConcertMutationError(message?: string | null) {
     return "Notes must be 3,000 characters or less.";
 
   return message;
-}
+};
 
-export function formatCaughtConcertActionError(error: unknown) {
+export const formatCaughtConcertActionError = (error: unknown) => {
   if (error instanceof AuthRequiredError) {
     return "Sign in to manage your concert logbook.";
   }
 
   return error instanceof Error ? error.message : "Concert action failed.";
-}
+};

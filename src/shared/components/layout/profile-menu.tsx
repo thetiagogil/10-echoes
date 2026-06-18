@@ -21,11 +21,11 @@ type ProfileMenuProps = {
   pathname: string;
 };
 
-export function ProfileMenu({
+export const ProfileMenu = ({
   isPending,
   onSignOut,
   pathname,
-}: ProfileMenuProps) {
+}: ProfileMenuProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -87,4 +87,4 @@ export function ProfileMenu({
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};

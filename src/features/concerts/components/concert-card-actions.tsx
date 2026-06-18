@@ -12,13 +12,13 @@ type ConcertCardActionsProps = {
   onEdit: () => void;
 };
 
-export function ConcertCardActions({
+export const ConcertCardActions = ({
   artist,
   disabled,
   href,
   onDelete,
   onEdit,
-}: ConcertCardActionsProps) {
+}: ConcertCardActionsProps) => {
   return (
     <div className="pointer-events-auto mt-auto flex items-center justify-end gap-1 pt-3">
       <ButtonLink
@@ -50,4 +50,4 @@ export function ConcertCardActions({
       </Button>
     </div>
   );
-}
+};

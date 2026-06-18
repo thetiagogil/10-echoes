@@ -14,7 +14,7 @@ type TimelineYearSectionProps = {
 const timelineGrid =
   "grid grid-cols-[var(--timeline-date-col)_var(--timeline-axis-col)_minmax(0,1fr)] gap-x-[var(--timeline-gap)]";
 
-export function TimelineYearSection({ group }: TimelineYearSectionProps) {
+export const TimelineYearSection = ({ group }: TimelineYearSectionProps) => {
   return (
     <section className="relative z-10 mb-12 last:mb-0">
       <div className={cn(timelineGrid, "relative z-10 mb-4 items-center")}>
@@ -56,4 +56,4 @@ export function TimelineYearSection({ group }: TimelineYearSectionProps) {
       </ol>
     </section>
   );
-}
+};

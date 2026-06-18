@@ -1,6 +1,6 @@
-import type { EchoesConcertRow } from "@/types/database.types";
+import type { Tables } from "@/types/database.types";
 
-export type ConcertRow = EchoesConcertRow;
+export type ConcertRow = Tables<{ schema: "echoes" }, "concerts">;
 
 export type Concert = {
   id: number;

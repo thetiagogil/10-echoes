@@ -18,7 +18,7 @@ type ConcertDetailHeaderProps = {
   wishlist: boolean;
 };
 
-export function ConcertDetailHeader({
+export const ConcertDetailHeader = ({
   concert,
   disabled,
   onDelete,
@@ -26,7 +26,7 @@ export function ConcertDetailHeader({
   past,
   status,
   wishlist,
-}: ConcertDetailHeaderProps) {
+}: ConcertDetailHeaderProps) => {
   const rating = concert.rating ?? 0;
 
   return (
@@ -95,4 +95,4 @@ export function ConcertDetailHeader({
       </div>
     </header>
   );
-}
+};

@@ -21,7 +21,7 @@ type ConcertCardFrontProps = {
   wishlist: boolean;
 };
 
-export function ConcertCardFront({
+export const ConcertCardFront = ({
   concert,
   disabled,
   onDelete,
@@ -30,7 +30,7 @@ export function ConcertCardFront({
   past,
   status,
   wishlist,
-}: ConcertCardFrontProps) {
+}: ConcertCardFrontProps) => {
   return (
     <div
       className={cn(
@@ -125,4 +125,4 @@ export function ConcertCardFront({
       </div>
     </div>
   );
-}
+};

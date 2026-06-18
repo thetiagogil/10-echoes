@@ -19,7 +19,7 @@ type LogbookViewProps = {
   initialConcerts: Concert[];
 };
 
-export function LogbookView({ initialConcerts }: LogbookViewProps) {
+export const LogbookView = ({ initialConcerts }: LogbookViewProps) => {
   const {
     closeDeleteDialog,
     closeForm,
@@ -134,4 +134,4 @@ export function LogbookView({ initialConcerts }: LogbookViewProps) {
       />
     </>
   );
-}
+};

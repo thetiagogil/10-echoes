@@ -4,7 +4,7 @@ type ProtectedLoadErrorProps = {
   error: unknown;
 };
 
-export function ProtectedLoadError({ error }: ProtectedLoadErrorProps) {
+export const ProtectedLoadError = ({ error }: ProtectedLoadErrorProps) => {
   return (
     <div className="mx-auto mt-32 max-w-xl px-6">
       <Alert tone="error">
@@ -14,4 +14,4 @@ export function ProtectedLoadError({ error }: ProtectedLoadErrorProps) {
       </Alert>
     </div>
   );
-}
+};

@@ -9,7 +9,11 @@ type RatingInputProps = {
   value: number;
 };
 
-export function RatingInput({ disabled, onChange, value }: RatingInputProps) {
+export const RatingInput = ({
+  disabled,
+  onChange,
+  value,
+}: RatingInputProps) => {
   return (
     <div className="grid gap-1.5">
       <Label>Rating</Label>
@@ -36,4 +40,4 @@ export function RatingInput({ disabled, onChange, value }: RatingInputProps) {
       </div>
     </div>
   );
-}
+};

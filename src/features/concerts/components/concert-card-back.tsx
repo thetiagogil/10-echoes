@@ -9,12 +9,12 @@ type ConcertCardBackProps = {
   songs: string[];
 };
 
-export function ConcertCardBack({
+export const ConcertCardBack = ({
   concert,
   disabled,
   onFlipBack,
   songs,
-}: ConcertCardBackProps) {
+}: ConcertCardBackProps) => {
   return (
     <div
       className={cn(
@@ -66,4 +66,4 @@ export function ConcertCardBack({
       </div>
     </div>
   );
-}
+};

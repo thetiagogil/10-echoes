@@ -5,9 +5,9 @@ import { echoes, type AppSupabaseClient } from "@/lib/supabase/schemas";
 const concertSelect =
   "id, user_id, artist, venue, city, concert_date, rating, setlist, notes, tags, is_wishlist, created_at, updated_at";
 
-export async function getConcerts(
+export const getConcerts = async (
   client: AppSupabaseClient,
-): Promise<Concert[]> {
+): Promise<Concert[]> => {
   const { data, error } = await echoes(client)
     .from("concerts")
     .select(concertSelect)
@@ -19,12 +19,12 @@ export async function getConcerts(
   }
 
   return (data ?? []).map(mapConcert);
-}
+};
 
-export async function getConcert(
+export const getConcert = async (
   client: AppSupabaseClient,
   concertId: number,
-): Promise<Concert | null> {
+): Promise<Concert | null> => {
   const { data, error } = await echoes(client)
     .from("concerts")
     .select(concertSelect)
@@ -36,4 +36,4 @@ export async function getConcert(
   }
 
   return data ? mapConcert(data) : null;
-}
+};

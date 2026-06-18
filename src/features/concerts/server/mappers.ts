@@ -1,6 +1,6 @@
 import type { Concert, ConcertRow } from "@/features/concerts/types";
 
-export function mapConcert(row: ConcertRow): Concert {
+export const mapConcert = (row: ConcertRow): Concert => {
   return {
     id: row.id,
     artist: row.artist,
@@ -15,4 +15,4 @@ export function mapConcert(row: ConcertRow): Concert {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
-}
+};

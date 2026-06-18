@@ -12,11 +12,11 @@ const valueColors: Record<StatsSummaryCardTone, string> = {
   secondary: "text-secondary",
 };
 
-export function StatsSummaryCard({
+export const StatsSummaryCard = ({
   label,
   tone = "default",
   value,
-}: StatsSummaryCardProps) {
+}: StatsSummaryCardProps) => {
   return (
     <div className="bg-card min-w-0 p-5 sm:p-6">
       <p className="text-muted-foreground mb-2 font-mono text-[10px] uppercase">
@@ -29,4 +29,4 @@ export function StatsSummaryCard({
       </p>
     </div>
   );
-}
+};

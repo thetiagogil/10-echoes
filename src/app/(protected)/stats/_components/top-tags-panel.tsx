@@ -9,7 +9,7 @@ type TopTagsPanelProps = {
   stats: ConcertStats;
 };
 
-export function TopTagsPanel({ stats }: TopTagsPanelProps) {
+export const TopTagsPanel = ({ stats }: TopTagsPanelProps) => {
   const maxTagCount = Math.max(...stats.topTags.map((tag) => tag.count), 1);
   return (
     <StatsPanel title="Top tags" tone="accent">
@@ -42,4 +42,4 @@ export function TopTagsPanel({ stats }: TopTagsPanelProps) {
       )}
     </StatsPanel>
   );
-}
+};

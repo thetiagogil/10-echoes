@@ -15,7 +15,7 @@ const timelineRailStyle = {
   left: "calc(var(--timeline-date-col) + var(--timeline-gap) + (var(--timeline-axis-col) / 2))",
 } satisfies CSSProperties;
 
-export function TimelineView({ groups }: TimelineViewProps) {
+export const TimelineView = ({ groups }: TimelineViewProps) => {
   if (groups.length === 0) {
     return (
       <div className="border-border rounded-lg border border-dashed p-12 text-center">
@@ -42,4 +42,4 @@ export function TimelineView({ groups }: TimelineViewProps) {
       ))}
     </section>
   );
-}
+};

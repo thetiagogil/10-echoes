@@ -7,7 +7,7 @@ type TopArtistsPanelProps = {
   stats: ConcertStats;
 };
 
-export function TopArtistsPanel({ stats }: TopArtistsPanelProps) {
+export const TopArtistsPanel = ({ stats }: TopArtistsPanelProps) => {
   const maxArtistCount = Math.max(
     ...stats.topArtists.map((artist) => artist.count),
     1,
@@ -44,4 +44,4 @@ export function TopArtistsPanel({ stats }: TopArtistsPanelProps) {
       )}
     </StatsPanel>
   );
-}
+};

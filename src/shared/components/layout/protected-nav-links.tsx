@@ -7,7 +7,7 @@ type ProtectedNavLinksProps = {
   pathname: string;
 };
 
-export function ProtectedNavLinks({ pathname }: ProtectedNavLinksProps) {
+export const ProtectedNavLinks = ({ pathname }: ProtectedNavLinksProps) => {
   return (
     <>
       {protectedNavLinks.map((link) => {
@@ -35,4 +35,4 @@ export function ProtectedNavLinks({ pathname }: ProtectedNavLinksProps) {
       })}
     </>
   );
-}
+};

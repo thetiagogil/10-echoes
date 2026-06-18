@@ -17,13 +17,13 @@ type DeleteConcertDialogProps = {
   pending: boolean;
 };
 
-export function DeleteConcertDialog({
+export const DeleteConcertDialog = ({
   artist,
   onConfirm,
   onOpenChange,
   open,
   pending,
-}: DeleteConcertDialogProps) {
+}: DeleteConcertDialogProps) => {
   return (
     <AlertDialog onOpenChange={onOpenChange} open={open}>
       <AlertDialogContent>
@@ -44,4 +44,4 @@ export function DeleteConcertDialog({
       </AlertDialogContent>
     </AlertDialog>
   );
-}
+};

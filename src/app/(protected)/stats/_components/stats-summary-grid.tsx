@@ -5,7 +5,7 @@ type StatsSummaryGridProps = {
   stats: ConcertStats;
 };
 
-export function StatsSummaryGrid({ stats }: StatsSummaryGridProps) {
+export const StatsSummaryGrid = ({ stats }: StatsSummaryGridProps) => {
   return (
     <section className="border-border bg-border grid grid-cols-2 gap-px overflow-hidden rounded-xl border md:grid-cols-5">
       <StatsSummaryCard label="Total shows" value={stats.totalShows} />
@@ -26,4 +26,4 @@ export function StatsSummaryGrid({ stats }: StatsSummaryGridProps) {
       />
     </section>
   );
-}
+};

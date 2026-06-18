@@ -1,12 +1,12 @@
-export function normalizeTagValue(value: string) {
+export const normalizeTagValue = (value: string) => {
   return value.trim().replace(/\s+/g, "-").toLowerCase();
-}
+};
 
-export function getCreatableTagOptions(
+export const getCreatableTagOptions = (
   availableTags: string[],
   selectedTags: string[],
   query: string,
-) {
+) => {
   const normalizedQuery = normalizeTagValue(query);
   const selected = new Set(selectedTags);
   const matchingTags = availableTags.filter((tag) => {
@@ -24,4 +24,4 @@ export function getCreatableTagOptions(
     matchingTags,
     normalizedQuery,
   };
-}
+};

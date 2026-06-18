@@ -27,12 +27,12 @@ const copy: Record<ConcertFilter, { body: string; title: string }> = {
   },
 };
 
-export function LogbookEmptyState({
+export const LogbookEmptyState = ({
   filter,
   hasActiveFilters,
   onCreate,
   onResetFilters,
-}: LogbookEmptyStateProps) {
+}: LogbookEmptyStateProps) => {
   const empty = hasActiveFilters
     ? {
         title: "No shows match this view.",
@@ -56,4 +56,4 @@ export function LogbookEmptyState({
       </div>
     </section>
   );
-}
+};

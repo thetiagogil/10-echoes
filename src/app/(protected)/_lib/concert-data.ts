@@ -4,7 +4,7 @@ import { getConcert, getConcerts } from "@/features/concerts/server/queries";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentAuthUser } from "@/shared/server/auth";
 
-export async function hydrateConcerts(nextPath = "/logbook") {
+export const hydrateConcerts = async (nextPath = "/logbook") => {
   const client = await createClient();
   const user = await getCurrentAuthUser(client);
 
@@ -13,9 +13,9 @@ export async function hydrateConcerts(nextPath = "/logbook") {
   }
 
   return getConcerts(client);
-}
+};
 
-export async function hydrateConcertDetail(concertId: number) {
+export const hydrateConcertDetail = async (concertId: number) => {
   const client = await createClient();
   const user = await getCurrentAuthUser(client);
 
@@ -30,4 +30,4 @@ export async function hydrateConcertDetail(concertId: number) {
   }
 
   return concert;
-}
+};

@@ -8,7 +8,10 @@ type TimelineEntryCardProps = {
   past: boolean;
 };
 
-export function TimelineEntryCard({ concert, past }: TimelineEntryCardProps) {
+export const TimelineEntryCard = ({
+  concert,
+  past,
+}: TimelineEntryCardProps) => {
   return (
     <Link
       aria-label={`View ${concert.artist} in the logbook`}
@@ -51,4 +54,4 @@ export function TimelineEntryCard({ concert, past }: TimelineEntryCardProps) {
       ) : null}
     </Link>
   );
-}
+};

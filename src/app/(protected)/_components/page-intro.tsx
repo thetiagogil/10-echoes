@@ -6,7 +6,7 @@ type PageIntroProps = {
   title: ReactNode;
 };
 
-export function PageIntro({ actions, description, title }: PageIntroProps) {
+export const PageIntro = ({ actions, description, title }: PageIntroProps) => {
   return (
     <section className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
@@ -23,4 +23,4 @@ export function PageIntro({ actions, description, title }: PageIntroProps) {
       {actions ? <div className="shrink-0">{actions}</div> : null}
     </section>
   );
-}
+};

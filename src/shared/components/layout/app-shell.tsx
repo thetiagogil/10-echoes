@@ -4,8 +4,8 @@ import { cn } from "@/shared/utils/cn";
 
 type AppShellProps = ComponentPropsWithoutRef<"div">;
 
-export function AppShell({ className, ...props }: AppShellProps) {
+export const AppShell = ({ className, ...props }: AppShellProps) => {
   return (
     <div className={cn("flex min-h-screen flex-col", className)} {...props} />
   );
-}
+};

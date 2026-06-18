@@ -7,7 +7,7 @@ type AppLogoProps = {
   href?: string;
 };
 
-export function AppLogo({ href }: AppLogoProps) {
+export const AppLogo = ({ href }: AppLogoProps) => {
   const content = (
     <span className="group/logo flex items-center gap-2">
       <Image
@@ -33,4 +33,4 @@ export function AppLogo({ href }: AppLogoProps) {
       {content}
     </Link>
   );
-}
+};

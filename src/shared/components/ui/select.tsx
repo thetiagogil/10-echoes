@@ -24,7 +24,7 @@ type SelectProps = Omit<
   wrapperClassName?: string;
 };
 
-export function Select({
+export const Select = ({
   className,
   disabled,
   id,
@@ -35,7 +35,7 @@ export function Select({
   value,
   wrapperClassName,
   ...props
-}: SelectProps) {
+}: SelectProps) => {
   const hasValue = value.length > 0;
 
   return (
@@ -104,4 +104,4 @@ export function Select({
       ) : null}
     </span>
   );
-}
+};

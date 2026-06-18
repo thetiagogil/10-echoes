@@ -13,10 +13,10 @@ import type {
 
 const statsEntryLimit = 5;
 
-export function getFilteredConcerts(
+export const getFilteredConcerts = (
   concerts: Concert[],
   filters: ConcertFilterState,
-) {
+) => {
   const query = filters.query.trim().toLowerCase();
 
   return filterConcerts(concerts, filters.status).filter((concert) => {
@@ -32,9 +32,9 @@ export function getFilteredConcerts(
 
     return getSearchText(concert).includes(query);
   });
-}
+};
 
-export function getAvailableYears(concerts: Concert[]) {
+export const getAvailableYears = (concerts: Concert[]) => {
   return Array.from(
     new Set(
       concerts
@@ -42,15 +42,15 @@ export function getAvailableYears(concerts: Concert[]) {
         .filter((year): year is string => Boolean(year)),
     ),
   ).sort((a, b) => b.localeCompare(a));
-}
+};
 
-export function getAvailableTags(concerts: Concert[]) {
+export const getAvailableTags = (concerts: Concert[]) => {
   return Array.from(new Set(concerts.flatMap((concert) => concert.tags))).sort(
     (a, b) => formatTagLabel(a).localeCompare(formatTagLabel(b)),
   );
-}
+};
 
-export function getConcertStats(concerts: Concert[]): ConcertStats {
+export const getConcertStats = (concerts: Concert[]): ConcertStats => {
   const wishlist = concerts.filter(isWishlistConcert);
   const scheduled = concerts.filter((concert) => !isWishlistConcert(concert));
   const attended = scheduled.filter((concert) =>
@@ -75,9 +75,9 @@ export function getConcertStats(concerts: Concert[]): ConcertStats {
     topVenues: getTopCounts(attended, (concert) => concert.venue),
     topTags: getTopTagCounts(concerts),
   };
-}
+};
 
-export function getTimelineGroups(concerts: Concert[]): TimelineYearGroup[] {
+export const getTimelineGroups = (concerts: Concert[]): TimelineYearGroup[] => {
   const sorted = filterConcerts(concerts, "all").filter(
     (concert) => !isWishlistConcert(concert),
   );
@@ -96,7 +96,7 @@ export function getTimelineGroups(concerts: Concert[]): TimelineYearGroup[] {
     year,
     concerts: groupedConcerts,
   }));
-}
+};
 
 function getTopCounts(
   concerts: Concert[],

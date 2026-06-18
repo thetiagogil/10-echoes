@@ -9,12 +9,12 @@ type StatsRankingRowProps = {
   label: ReactNode;
 };
 
-export function StatsRankingRow({
+export const StatsRankingRow = ({
   className,
   count,
   indexLabel,
   label,
-}: StatsRankingRowProps) {
+}: StatsRankingRowProps) => {
   return (
     <div
       className={cn(
@@ -35,4 +35,4 @@ export function StatsRankingRow({
       </span>
     </div>
   );
-}
+};

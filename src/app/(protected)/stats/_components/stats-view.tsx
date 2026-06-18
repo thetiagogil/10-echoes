@@ -8,7 +8,7 @@ type StatsViewProps = {
   stats: ConcertStats;
 };
 
-export function StatsView({ stats }: StatsViewProps) {
+export const StatsView = ({ stats }: StatsViewProps) => {
   return (
     <div className="space-y-10">
       <StatsSummaryGrid stats={stats} />
@@ -20,4 +20,4 @@ export function StatsView({ stats }: StatsViewProps) {
       </section>
     </div>
   );
-}
+};

@@ -13,11 +13,11 @@ type SetlistBuilderProps = {
   value: string;
 };
 
-export function SetlistBuilder({
+export const SetlistBuilder = ({
   disabled,
   onChange,
   value,
-}: SetlistBuilderProps) {
+}: SetlistBuilderProps) => {
   const [songs, setSongs] = useState(() => (value ? value.split("\n") : []));
 
   const commitSongs = (nextSongs: string[]) => {
@@ -88,4 +88,4 @@ export function SetlistBuilder({
       </div>
     </div>
   );
-}
+};

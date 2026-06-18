@@ -16,7 +16,9 @@ type ProfileSettingsFormProps = {
   currentUser: CurrentUser;
 };
 
-export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
+export const ProfileSettingsForm = ({
+  currentUser,
+}: ProfileSettingsFormProps) => {
   const initialDisplayName = currentUser.profile.displayName;
   const initialBio = currentUser.profile.bio ?? "";
   const [savedProfile, setSavedProfile] = useState({
@@ -141,4 +143,4 @@ export function ProfileSettingsForm({ currentUser }: ProfileSettingsFormProps) {
       </div>
     </form>
   );
-}
+};

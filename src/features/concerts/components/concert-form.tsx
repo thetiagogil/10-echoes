@@ -23,14 +23,14 @@ type ConcertFormProps = {
   pending: boolean;
 };
 
-export function ConcertForm({
+export const ConcertForm = ({
   availableTags = [],
   editing,
   onClose,
   onSubmit,
   open,
   pending,
-}: ConcertFormProps) {
+}: ConcertFormProps) => {
   const [artist, setArtist] = useState(editing?.artist ?? "");
   const [venue, setVenue] = useState(editing?.venue ?? "");
   const [city, setCity] = useState(editing?.city ?? "");
@@ -186,4 +186,4 @@ export function ConcertForm({
       </form>
     </Modal>
   );
-}
+};

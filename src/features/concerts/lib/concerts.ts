@@ -27,9 +27,9 @@ export type NormalizedConcertResult =
   | { ok: true; data: NormalizedConcertInput }
   | { ok: false; error: string };
 
-export function normalizeConcertInput(
+export const normalizeConcertInput = (
   input: ConcertFormInput,
-): NormalizedConcertResult {
+): NormalizedConcertResult => {
   const artist = input.artist.trim();
   const venue = input.venue.trim();
   const city = normalizeOptional(input.city);
@@ -90,34 +90,34 @@ export function normalizeConcertInput(
       isWishlist,
     },
   };
-}
+};
 
-export function isWishlistConcert(concert: Concert) {
+export const isWishlistConcert = (concert: Concert) => {
   return concert.isWishlist || !concert.concertDate;
-}
+};
 
-export function isPastConcert(
+export const isPastConcert = (
   concertDate: string | null,
   today = getTodayDateOnly(),
-) {
+) => {
   if (!concertDate) return false;
 
   return concertDate < today;
-}
+};
 
-export function isUpcomingConcert(
+export const isUpcomingConcert = (
   concert: Concert,
   today = getTodayDateOnly(),
-) {
+) => {
   return (
     !isWishlistConcert(concert) && !isPastConcert(concert.concertDate, today)
   );
-}
+};
 
-export function filterConcerts(
+export const filterConcerts = (
   concerts: Concert[],
   filter: ConcertFilter,
-): Concert[] {
+): Concert[] => {
   const sorted = [...concerts].sort(compareConcerts);
 
   if (filter === "past") {
@@ -136,9 +136,9 @@ export function filterConcerts(
   }
 
   return sorted;
-}
+};
 
-export function formatConcertDate(concertDate: string | null) {
+export const formatConcertDate = (concertDate: string | null) => {
   if (!concertDate) return "Someday";
 
   return new Date(`${concertDate}T00:00:00`).toLocaleDateString("en-US", {
@@ -146,23 +146,23 @@ export function formatConcertDate(concertDate: string | null) {
     month: "short",
     year: "numeric",
   });
-}
+};
 
-export function formatConcertMonthDay(concertDate: string | null) {
+export const formatConcertMonthDay = (concertDate: string | null) => {
   if (!concertDate) return "Someday";
 
   return new Date(`${concertDate}T00:00:00`).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
   });
-}
+};
 
-export function formatTagLabel(tag: string) {
+export const formatTagLabel = (tag: string) => {
   return tag
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
-}
+};
 
 function compareConcerts(a: Concert, b: Concert) {
   if (!a.concertDate && !b.concertDate) {

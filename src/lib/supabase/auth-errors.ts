@@ -1,4 +1,4 @@
-export function isInvalidRefreshTokenError(error: unknown) {
+export const isInvalidRefreshTokenError = (error: unknown) => {
   if (!error || typeof error !== "object") {
     return false;
   }
@@ -18,4 +18,4 @@ export function isInvalidRefreshTokenError(error: unknown) {
     normalizedMessage.includes("invalid refresh token") ||
     normalizedMessage.includes("refresh token not found")
   );
-}
+};

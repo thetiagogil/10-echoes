@@ -429,12 +429,12 @@ export type Database = {
       create_concert: {
         Args: {
           p_artist: string
-          p_city?: string | null
-          p_concert_date: string | null
+          p_city?: string
+          p_concert_date: string
           p_is_wishlist?: boolean
-          p_notes?: string | null
-          p_rating?: number | null
-          p_setlist?: string | null
+          p_notes?: string
+          p_rating?: number
+          p_setlist?: string
           p_tags?: string[]
           p_venue: string
         }
@@ -487,13 +487,13 @@ export type Database = {
       update_concert: {
         Args: {
           p_artist: string
-          p_city?: string | null
-          p_concert_date: string | null
+          p_city?: string
+          p_concert_date: string
           p_concert_id: number
           p_is_wishlist?: boolean
-          p_notes?: string | null
-          p_rating?: number | null
-          p_setlist?: string | null
+          p_notes?: string
+          p_rating?: number
+          p_setlist?: string
           p_tags?: string[]
           p_venue: string
         }
@@ -863,7 +863,7 @@ export type Database = {
       create_tracker: {
         Args: {
           p_category: string
-          p_notes?: string | null
+          p_notes?: string
           p_title: string
           p_url: string
           p_username?: string
@@ -919,7 +919,7 @@ export type Database = {
       update_tracker: {
         Args: {
           p_category: string
-          p_notes?: string | null
+          p_notes?: string
           p_title: string
           p_tracker_id: number
           p_url: string
@@ -1092,5 +1092,3 @@ export const Constants = {
     Enums: {},
   },
 } as const
-
-export type EchoesConcertRow = Tables<{ schema: "echoes" }, "concerts">;

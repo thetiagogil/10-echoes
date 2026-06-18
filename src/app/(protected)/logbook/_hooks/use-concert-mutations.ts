@@ -10,7 +10,7 @@ import {
 } from "@/features/concerts/server/actions";
 import type { Concert, ConcertFormInput } from "@/features/concerts/types";
 
-export function useConcertMutations(initialConcerts: Concert[]) {
+export const useConcertMutations = (initialConcerts: Concert[]) => {
   const router = useRouter();
   const [concerts, setConcerts] = useState(initialConcerts);
   const [formOpen, setFormOpen] = useState(false);
@@ -113,4 +113,4 @@ export function useConcertMutations(initialConcerts: Concert[]) {
     requestDeleteConcert,
     submitConcert,
   };
-}
+};

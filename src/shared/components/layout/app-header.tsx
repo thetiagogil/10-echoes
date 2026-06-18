@@ -10,14 +10,14 @@ type AppHeaderProps = ComponentPropsWithoutRef<"header"> & {
   leading?: ReactNode;
 };
 
-export function AppHeader({
+export const AppHeader = ({
   actions,
   center,
   className,
   innerClassName,
   leading,
   ...props
-}: AppHeaderProps) {
+}: AppHeaderProps) => {
   return (
     <header
       className={cn(
@@ -50,4 +50,4 @@ export function AppHeader({
       </div>
     </header>
   );
-}
+};

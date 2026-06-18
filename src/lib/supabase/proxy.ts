@@ -5,7 +5,7 @@ import { getSupabaseEnv, isSupabaseConfigured } from "@/lib/env";
 import { isInvalidRefreshTokenError } from "@/lib/supabase/auth-errors";
 import type { Database } from "@/types/database.types";
 
-export async function updateSession(request: NextRequest) {
+export const updateSession = async (request: NextRequest) => {
   let response = NextResponse.next({ request });
 
   if (!isSupabaseConfigured()) {
@@ -48,7 +48,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   return response;
-}
+};
 
 function clearSupabaseAuthCookies(request: NextRequest) {
   const cookieNames = request.cookies

@@ -11,10 +11,10 @@ type ConcertMetadataPanelProps = {
   status: string;
 };
 
-export function ConcertMetadataPanel({
+export const ConcertMetadataPanel = ({
   concert,
   status,
-}: ConcertMetadataPanelProps) {
+}: ConcertMetadataPanelProps) => {
   return (
     <section className="lg:col-span-2">
       <h2 className="text-secondary flex items-center gap-2 font-mono text-xs uppercase">
@@ -38,7 +38,7 @@ export function ConcertMetadataPanel({
       </dl>
     </section>
   );
-}
+};
 
 type DetailStatProps = {
   label: string;

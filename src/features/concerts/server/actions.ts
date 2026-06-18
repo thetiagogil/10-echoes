@@ -23,9 +23,9 @@ import {
   requireAuthUser,
 } from "@/shared/server/auth";
 
-export async function createConcertAction(
+export const createConcertAction = async (
   input: ConcertFormInput,
-): Promise<ActionResult<Concert>> {
+): Promise<ActionResult<Concert>> => {
   const normalized = normalizeConcertInput(input);
 
   if (!normalized.ok) {
@@ -52,12 +52,12 @@ export async function createConcertAction(
   } catch (error) {
     return { ok: false, error: formatCaughtConcertActionError(error) };
   }
-}
+};
 
-export async function updateConcertAction(
+export const updateConcertAction = async (
   concertId: number,
   input: ConcertFormInput,
-): Promise<ActionResult<Concert>> {
+): Promise<ActionResult<Concert>> => {
   const idResult = validateConcertId(concertId);
 
   if (!idResult.ok) {
@@ -89,11 +89,11 @@ export async function updateConcertAction(
   } catch (error) {
     return { ok: false, error: formatCaughtConcertActionError(error) };
   }
-}
+};
 
-export async function deleteConcertAction(
+export const deleteConcertAction = async (
   concertId: number,
-): Promise<ActionResult<Concert>> {
+): Promise<ActionResult<Concert>> => {
   const idResult = validateConcertId(concertId);
 
   if (!idResult.ok) {
@@ -119,7 +119,7 @@ export async function deleteConcertAction(
   } catch (error) {
     return { ok: false, error: formatCaughtConcertActionError(error) };
   }
-}
+};
 
 function revalidateConcertRoutes(concertId?: number) {
   revalidatePath("/logbook");

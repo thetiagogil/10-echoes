@@ -10,7 +10,7 @@ import {
 } from "@/features/concerts/lib/view-model";
 import type { Concert, ConcertFilter } from "@/features/concerts/types";
 
-export function useLogbookFilters(concerts: Concert[]) {
+export const useLogbookFilters = (concerts: Concert[]) => {
   const [activeFilter, setActiveFilter] = useState<ConcertFilter>("all");
   const [query, setQuery] = useState("");
   const [year, setYear] = useState("");
@@ -72,4 +72,4 @@ export function useLogbookFilters(concerts: Concert[]) {
     year,
     yearOptions,
   };
-}
+};

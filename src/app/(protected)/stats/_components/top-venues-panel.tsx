@@ -7,7 +7,7 @@ type TopVenuesPanelProps = {
   stats: ConcertStats;
 };
 
-export function TopVenuesPanel({ stats }: TopVenuesPanelProps) {
+export const TopVenuesPanel = ({ stats }: TopVenuesPanelProps) => {
   return (
     <StatsPanel title="Favorite venues" tone="secondary">
       {stats.topVenues.length > 0 ? (
@@ -31,4 +31,4 @@ export function TopVenuesPanel({ stats }: TopVenuesPanelProps) {
       )}
     </StatsPanel>
   );
-}
+};

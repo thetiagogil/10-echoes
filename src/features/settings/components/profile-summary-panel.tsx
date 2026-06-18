@@ -8,11 +8,11 @@ type ProfileSummaryPanelProps = {
   email: string | null;
 };
 
-export function ProfileSummaryPanel({
+export const ProfileSummaryPanel = ({
   bio,
   displayName,
   email,
-}: ProfileSummaryPanelProps) {
+}: ProfileSummaryPanelProps) => {
   return (
     <section className="border-border bg-card flex flex-col items-start gap-5 rounded-xl border p-5 sm:flex-row sm:items-center sm:p-6">
       <div className="bg-gradient-stage text-primary-foreground font-display shadow-stage grid h-20 w-20 shrink-0 place-items-center rounded-full text-2xl font-bold">
@@ -39,4 +39,4 @@ export function ProfileSummaryPanel({
       </div>
     </section>
   );
-}
+};

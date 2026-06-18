@@ -34,7 +34,7 @@ const cornerTones: Record<CardTone, string> = {
   primary: "text-primary",
 };
 
-export function Card({
+export const Card = ({
   as: Component = "div",
   children,
   className,
@@ -44,7 +44,7 @@ export function Card({
   rarity,
   tone = "default",
   ...props
-}: CardProps) {
+}: CardProps) => {
   const borderClass = rarity ? RARITY_BORDER_CLASS[rarity] : borders[tone];
   const cornerClass = rarity ? RARITY_TEXT_CLASS[rarity] : cornerTones[tone];
 
@@ -93,4 +93,4 @@ export function Card({
       {children}
     </Component>
   );
-}
+};

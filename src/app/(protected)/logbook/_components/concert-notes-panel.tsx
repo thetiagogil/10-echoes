@@ -2,7 +2,7 @@ type ConcertNotesPanelProps = {
   notes: string | null;
 };
 
-export function ConcertNotesPanel({ notes }: ConcertNotesPanelProps) {
+export const ConcertNotesPanel = ({ notes }: ConcertNotesPanelProps) => {
   return (
     <section>
       <h2 className="text-secondary font-mono text-xs uppercase">Notes</h2>
@@ -17,4 +17,4 @@ export function ConcertNotesPanel({ notes }: ConcertNotesPanelProps) {
       )}
     </section>
   );
-}
+};

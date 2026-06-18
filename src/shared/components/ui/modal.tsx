@@ -14,13 +14,13 @@ type ModalProps = {
   onClose: () => void;
 };
 
-export function Modal({
+export const Modal = ({
   children,
   description,
   onClose,
   open,
   title,
-}: ModalProps) {
+}: ModalProps) => {
   return (
     <DialogPrimitive.Root
       onOpenChange={(nextOpen) => {
@@ -63,4 +63,4 @@ export function Modal({
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
   );
-}
+};

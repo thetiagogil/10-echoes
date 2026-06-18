@@ -7,7 +7,7 @@ export type ConcertIdParamResult =
       ok: false;
     };
 
-export function parseConcertIdParam(value: string): ConcertIdParamResult {
+export const parseConcertIdParam = (value: string): ConcertIdParamResult => {
   if (!/^[1-9]\d*$/.test(value)) {
     return { ok: false };
   }
@@ -15,4 +15,4 @@ export function parseConcertIdParam(value: string): ConcertIdParamResult {
   const id = Number(value);
 
   return Number.isSafeInteger(id) ? { ok: true, id } : { ok: false };
-}
+};

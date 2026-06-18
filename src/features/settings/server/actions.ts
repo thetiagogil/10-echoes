@@ -13,9 +13,9 @@ import { requireAuthUser } from "@/shared/server/auth";
 import { mapProfile } from "@/shared/server/mappers";
 import type { Profile } from "@/shared/types";
 
-export async function updateProfileSettingsAction(
+export const updateProfileSettingsAction = async (
   input: ProfileSettingsInput,
-): Promise<ActionResult<Profile>> {
+): Promise<ActionResult<Profile>> => {
   const normalized = normalizeProfileSettingsInput(input);
 
   if (!normalized.ok) {
@@ -60,4 +60,4 @@ export async function updateProfileSettingsAction(
           : "Could not update profile settings.",
     };
   }
-}
+};

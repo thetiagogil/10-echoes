@@ -4,7 +4,7 @@ type ConcertSetlistPanelProps = {
   songs: string[];
 };
 
-export function ConcertSetlistPanel({ songs }: ConcertSetlistPanelProps) {
+export const ConcertSetlistPanel = ({ songs }: ConcertSetlistPanelProps) => {
   return (
     <section>
       <h2 className="text-secondary flex items-center gap-2 font-mono text-xs uppercase">
@@ -31,4 +31,4 @@ export function ConcertSetlistPanel({ songs }: ConcertSetlistPanelProps) {
       </div>
     </section>
   );
-}
+};

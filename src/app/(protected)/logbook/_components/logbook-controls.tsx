@@ -26,7 +26,7 @@ type LogbookControlsProps = {
   onYearChange: (year: string) => void;
 };
 
-export function LogbookControls({
+export const LogbookControls = ({
   activeFilter,
   hasConcerts,
   query,
@@ -38,7 +38,7 @@ export function LogbookControls({
   onQueryChange,
   onTagChange,
   onYearChange,
-}: LogbookControlsProps) {
+}: LogbookControlsProps) => {
   const yearDisabled = !hasConcerts || (yearOptions.length === 0 && !year);
   const tagDisabled = !hasConcerts || (tagOptions.length === 0 && !tag);
 
@@ -105,4 +105,4 @@ export function LogbookControls({
       />
     </section>
   );
-}
+};

@@ -8,11 +8,11 @@ type WishlistToggleProps = {
   onChange: (checked: boolean) => void;
 };
 
-export function WishlistToggle({
+export const WishlistToggle = ({
   checked,
   disabled,
   onChange,
-}: WishlistToggleProps) {
+}: WishlistToggleProps) => {
   return (
     <label
       className={cn(
@@ -47,4 +47,4 @@ export function WishlistToggle({
       </span>
     </label>
   );
-}
+};

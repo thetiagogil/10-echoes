@@ -16,7 +16,7 @@ const toneStyles: Record<StatsPanelTone, string> = {
   secondary: "from-secondary/25 to-transparent",
 };
 
-export function StatsPanel({ children, title, tone }: StatsPanelProps) {
+export const StatsPanel = ({ children, title, tone }: StatsPanelProps) => {
   return (
     <section className="border-border bg-card/80 shadow-card relative min-w-0 overflow-hidden rounded-lg border p-6">
       <div
@@ -29,4 +29,4 @@ export function StatsPanel({ children, title, tone }: StatsPanelProps) {
       {children}
     </section>
   );
-}
+};

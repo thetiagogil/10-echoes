@@ -18,12 +18,12 @@ type ConcertCardProps = {
   onEdit: (concert: Concert) => void;
 };
 
-export function ConcertCard({
+export const ConcertCard = ({
   concert,
   disabled = false,
   onDelete,
   onEdit,
-}: ConcertCardProps) {
+}: ConcertCardProps) => {
   const [flipped, setFlipped] = useState(false);
   const wishlist = isWishlistConcert(concert);
   const past = !wishlist && isPastConcert(concert.concertDate);
@@ -63,4 +63,4 @@ export function ConcertCard({
       </div>
     </article>
   );
-}
+};

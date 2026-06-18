@@ -27,7 +27,9 @@ type ConcertDetailViewProps = {
   initialConcert: Concert;
 };
 
-export function ConcertDetailView({ initialConcert }: ConcertDetailViewProps) {
+export const ConcertDetailView = ({
+  initialConcert,
+}: ConcertDetailViewProps) => {
   const router = useRouter();
   const [concert, setConcert] = useState(initialConcert);
   const [editing, setEditing] = useState<Concert | null>(null);
@@ -133,4 +135,4 @@ export function ConcertDetailView({ initialConcert }: ConcertDetailViewProps) {
       />
     </>
   );
-}
+};

@@ -19,12 +19,12 @@ const variants: Record<BadgeVariant, string> = {
   surface: "border-border bg-surface-elevated text-foreground",
 };
 
-export function Badge({
+export const Badge = ({
   className,
   rarity,
   variant = "default",
   ...props
-}: BadgeProps) {
+}: BadgeProps) => {
   return (
     <span
       className={cn(
@@ -35,4 +35,4 @@ export function Badge({
       {...props}
     />
   );
-}
+};
