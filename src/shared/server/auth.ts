@@ -49,7 +49,7 @@ export const requireAuthUser = async (client: AppSupabaseClient) => {
   return user;
 };
 
-export async function getCurrentAuthUser(client: AppSupabaseClient) {
+export const getCurrentAuthUser = async (client: AppSupabaseClient) => {
   try {
     const {
       data: { user },
@@ -68,12 +68,12 @@ export async function getCurrentAuthUser(client: AppSupabaseClient) {
 
     throw error;
   }
-}
+};
 
-export async function ensureProfileForAuthUser(
+export const ensureProfileForAuthUser = async (
   client: AppSupabaseClient,
   user: User,
-): Promise<ProfileRow> {
+): Promise<ProfileRow> => {
   const existing = await readProfile(client, user.id);
 
   if (existing) {
@@ -106,16 +106,16 @@ export async function ensureProfileForAuthUser(
   }
 
   throw new Error(error?.message ?? "Could not create profile.");
-}
+};
 
 export const hasProfile = (profile: Profile | null): profile is Profile => {
   return Boolean(profile);
 };
 
-async function readProfile(
+const readProfile = async (
   client: AppSupabaseClient,
   userId: string,
-): Promise<ProfileRow | null> {
+): Promise<ProfileRow | null> => {
   const { data, error } = await core(client)
     .from("profiles")
     .select(
@@ -129,9 +129,9 @@ async function readProfile(
   }
 
   return data;
-}
+};
 
-function getProfileDefaults(user: User) {
+const getProfileDefaults = (user: User) => {
   const metadata = isRecord(user.user_metadata) ? user.user_metadata : {};
   const emailName = user.email?.split("@")[0]?.replace(/[._-]+/g, " ");
   const displayName =
@@ -145,17 +145,17 @@ function getProfileDefaults(user: User) {
     displayName,
     avatarUrl: readString(metadata.avatar_url) ?? readString(metadata.picture),
   };
-}
+};
 
-function isRecord(value: unknown): value is Record<string, unknown> {
+const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value);
-}
+};
 
-function readString(value: unknown) {
+const readString = (value: unknown) => {
   return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+};
 
-function titleCase(value: string | null | undefined) {
+const titleCase = (value: string | null | undefined) => {
   if (!value?.trim()) {
     return null;
   }
@@ -165,4 +165,4 @@ function titleCase(value: string | null | undefined) {
     .split(/\s+/)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
-}
+};

@@ -50,7 +50,7 @@ export const updateSession = async (request: NextRequest) => {
   return response;
 };
 
-function clearSupabaseAuthCookies(request: NextRequest) {
+const clearSupabaseAuthCookies = (request: NextRequest) => {
   const cookieNames = request.cookies
     .getAll()
     .map((cookie) => cookie.name)
@@ -68,8 +68,8 @@ function clearSupabaseAuthCookies(request: NextRequest) {
   });
 
   return response;
-}
+};
 
-function isSupabaseAuthCookieName(name: string) {
+const isSupabaseAuthCookieName = (name: string) => {
   return name.startsWith("sb-") && name.includes("-auth-token");
-}
+};

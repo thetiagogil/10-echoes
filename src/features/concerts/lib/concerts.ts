@@ -164,7 +164,7 @@ export const formatTagLabel = (tag: string) => {
     .join(" ");
 };
 
-function compareConcerts(a: Concert, b: Concert) {
+const compareConcerts = (a: Concert, b: Concert) => {
   if (!a.concertDate && !b.concertDate) {
     return a.artist.localeCompare(b.artist);
   }
@@ -175,9 +175,9 @@ function compareConcerts(a: Concert, b: Concert) {
   if (dateCompare !== 0) return dateCompare;
 
   return a.artist.localeCompare(b.artist);
-}
+};
 
-function compareUpcomingConcerts(a: Concert, b: Concert) {
+const compareUpcomingConcerts = (a: Concert, b: Concert) => {
   if (!a.concertDate && !b.concertDate) {
     return a.artist.localeCompare(b.artist);
   }
@@ -188,23 +188,23 @@ function compareUpcomingConcerts(a: Concert, b: Concert) {
   if (dateCompare !== 0) return dateCompare;
 
   return a.artist.localeCompare(b.artist);
-}
+};
 
-function normalizeOptional(value: string | null | undefined) {
+const normalizeOptional = (value: string | null | undefined) => {
   const trimmed = value?.trim();
   return trimmed ? trimmed : null;
-}
+};
 
-function normalizeRating(value: number | null | undefined) {
+const normalizeRating = (value: number | null | undefined) => {
   if (value === null || value === undefined || value === 0) return null;
   if (!Number.isInteger(value)) return Number.NaN;
 
   return value;
-}
+};
 
-function normalizeTags(
+const normalizeTags = (
   value: string[] | string | null | undefined,
-): { ok: true; data: string[] } | { ok: false; error: string } {
+): { ok: true; data: string[] } | { ok: false; error: string } => {
   const rawTags = Array.isArray(value)
     ? value
     : typeof value === "string"
@@ -235,9 +235,9 @@ function normalizeTags(
   }
 
   return { ok: true, data: tags };
-}
+};
 
-function isValidDateOnly(value: string) {
+const isValidDateOnly = (value: string) => {
   const match = datePattern.exec(value);
   if (!match) return false;
 
@@ -251,10 +251,10 @@ function isValidDateOnly(value: string) {
     date.getUTCMonth() === month - 1 &&
     date.getUTCDate() === day
   );
-}
+};
 
-function getTodayDateOnly() {
+const getTodayDateOnly = () => {
   const now = new Date();
   const offset = now.getTimezoneOffset();
   return new Date(now.getTime() - offset * 60_000).toISOString().slice(0, 10);
-}
+};

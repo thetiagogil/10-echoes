@@ -5,6 +5,7 @@ import {
   formatTagLabel,
 } from "@/features/concerts/lib/concerts";
 import type { Concert } from "@/features/concerts/types";
+import { DetailStat } from "./detail-stat";
 
 type ConcertMetadataPanelProps = {
   concert: Concert;
@@ -39,19 +40,3 @@ export const ConcertMetadataPanel = ({
     </section>
   );
 };
-
-type DetailStatProps = {
-  label: string;
-  value: string;
-};
-
-function DetailStat({ label, value }: DetailStatProps) {
-  return (
-    <div className="bg-card p-4">
-      <dt className="text-muted-foreground mb-1 font-mono text-[10px] uppercase">
-        {label}
-      </dt>
-      <dd className="truncate text-sm font-semibold">{value}</dd>
-    </div>
-  );
-}

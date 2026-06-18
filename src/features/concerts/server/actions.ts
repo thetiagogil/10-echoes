@@ -121,7 +121,7 @@ export const deleteConcertAction = async (
   }
 };
 
-function revalidateConcertRoutes(concertId?: number) {
+const revalidateConcertRoutes = (concertId?: number) => {
   revalidatePath("/logbook");
   revalidatePath("/timeline");
   revalidatePath("/stats");
@@ -129,4 +129,4 @@ function revalidateConcertRoutes(concertId?: number) {
   if (concertId) {
     revalidatePath(`/logbook/${concertId}`);
   }
-}
+};

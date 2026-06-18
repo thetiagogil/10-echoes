@@ -98,11 +98,11 @@ export const getTimelineGroups = (concerts: Concert[]): TimelineYearGroup[] => {
   }));
 };
 
-function getTopCounts(
+const getTopCounts = (
   concerts: Concert[],
   getKey: (concert: Concert) => string | null,
   limit = statsEntryLimit,
-) {
+) => {
   const counts = new Map<string, number>();
 
   for (const concert of concerts) {
@@ -116,9 +116,9 @@ function getTopCounts(
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
     .slice(0, limit);
-}
+};
 
-function getTopTagCounts(concerts: Concert[], limit = statsEntryLimit) {
+const getTopTagCounts = (concerts: Concert[], limit = statsEntryLimit) => {
   const counts = new Map<string, number>();
 
   for (const concert of concerts) {
@@ -131,9 +131,9 @@ function getTopTagCounts(concerts: Concert[], limit = statsEntryLimit) {
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
     .slice(0, limit);
-}
+};
 
-function getSearchText(concert: Concert) {
+const getSearchText = (concert: Concert) => {
   return [
     concert.artist,
     concert.venue,
@@ -145,4 +145,4 @@ function getSearchText(concert: Concert) {
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
-}
+};

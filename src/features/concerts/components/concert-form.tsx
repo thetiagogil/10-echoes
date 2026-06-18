@@ -1,12 +1,12 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { FormEvent, useState } from "react";
 
 import { RatingInput } from "@/features/concerts/components/rating-input";
 import { SetlistBuilder } from "@/features/concerts/components/setlist-builder";
 import { TagPicker } from "@/features/concerts/components/tag-picker";
 import { WishlistToggle } from "@/features/concerts/components/wishlist-toggle";
+import { useConcertForm } from "@/features/concerts/hooks/use-concert-form";
 import type { Concert, ConcertFormInput } from "@/features/concerts/types";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
@@ -31,33 +31,7 @@ export const ConcertForm = ({
   open,
   pending,
 }: ConcertFormProps) => {
-  const [artist, setArtist] = useState(editing?.artist ?? "");
-  const [venue, setVenue] = useState(editing?.venue ?? "");
-  const [city, setCity] = useState(editing?.city ?? "");
-  const [concertDate, setConcertDate] = useState(editing?.concertDate ?? "");
-  const [rating, setRating] = useState(editing?.rating ?? 0);
-  const [notes, setNotes] = useState(editing?.notes ?? "");
-  const [setlist, setSetlist] = useState(editing?.setlist ?? "");
-  const [tags, setTags] = useState(editing?.tags ?? []);
-  const [isWishlist, setIsWishlist] = useState(editing?.isWishlist ?? false);
-
-  const submit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const readField = (name: string) => formData.get(name)?.toString() ?? "";
-
-    onSubmit({
-      artist: readField("artist"),
-      venue: readField("venue"),
-      city: readField("city"),
-      concertDate: readField("concertDate") || null,
-      rating: rating || null,
-      notes: readField("notes"),
-      setlist,
-      tags,
-      isWishlist,
-    });
-  };
+  const form = useConcertForm({ editing, onSubmit });
 
   return (
     <Modal
@@ -66,7 +40,7 @@ export const ConcertForm = ({
       open={open}
       title={editing ? "Edit show" : "Log a show"}
     >
-      <form className="space-y-4" onSubmit={submit}>
+      <form className="space-y-4" onSubmit={form.submit}>
         <div className="grid gap-1.5">
           <Label htmlFor="artist" required>
             Artist
@@ -77,17 +51,17 @@ export const ConcertForm = ({
             id="artist"
             maxLength={160}
             name="artist"
-            onChange={(event) => setArtist(event.target.value)}
+            onChange={(event) => form.setArtist(event.target.value)}
             placeholder="Who's playing?"
             required
-            value={artist}
+            value={form.artist}
           />
         </div>
 
         <WishlistToggle
-          checked={isWishlist}
+          checked={form.isWishlist}
           disabled={pending}
-          onChange={setIsWishlist}
+          onChange={form.setIsWishlist}
         />
 
         <div className="grid gap-3 sm:grid-cols-2">
@@ -101,10 +75,10 @@ export const ConcertForm = ({
               id="venue"
               maxLength={160}
               name="venue"
-              onChange={(event) => setVenue(event.target.value)}
+              onChange={(event) => form.setVenue(event.target.value)}
               placeholder="Madison Square Garden"
               required
-              value={venue}
+              value={form.venue}
             />
           </div>
           <div className="grid gap-1.5">
@@ -115,15 +89,15 @@ export const ConcertForm = ({
               id="city"
               maxLength={120}
               name="city"
-              onChange={(event) => setCity(event.target.value)}
+              onChange={(event) => form.setCity(event.target.value)}
               placeholder="New York, NY"
-              value={city}
+              value={form.city}
             />
           </div>
         </div>
 
         <div className="grid gap-1.5">
-          <Label htmlFor="concertDate" required={!isWishlist}>
+          <Label htmlFor="concertDate" required={!form.isWishlist}>
             Date
           </Label>
           <Input
@@ -131,23 +105,27 @@ export const ConcertForm = ({
             id="concertDate"
             inputMode="numeric"
             name="concertDate"
-            onChange={(event) => setConcertDate(event.target.value)}
+            onChange={(event) => form.setConcertDate(event.target.value)}
             pattern="\d{4}-\d{2}-\d{2}"
             placeholder="2026-06-01"
-            required={!isWishlist}
+            required={!form.isWishlist}
             type="text"
-            value={concertDate}
+            value={form.concertDate}
           />
         </div>
 
         <TagPicker
           availableTags={availableTags}
           disabled={pending}
-          onChange={setTags}
-          value={tags}
+          onChange={form.setTags}
+          value={form.tags}
         />
 
-        <RatingInput disabled={pending} onChange={setRating} value={rating} />
+        <RatingInput
+          disabled={pending}
+          onChange={form.setRating}
+          value={form.rating}
+        />
 
         <div className="grid gap-1.5">
           <Label htmlFor="notes">Notes</Label>
@@ -156,17 +134,17 @@ export const ConcertForm = ({
             id="notes"
             maxLength={3000}
             name="notes"
-            onChange={(event) => setNotes(event.target.value)}
+            onChange={(event) => form.setNotes(event.target.value)}
             placeholder="A moment, a memory, the way the room felt..."
             rows={3}
-            value={notes}
+            value={form.notes}
           />
         </div>
 
         <SetlistBuilder
           disabled={pending}
-          onChange={setSetlist}
-          value={setlist}
+          onChange={form.setSetlist}
+          value={form.setlist}
         />
 
         <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
